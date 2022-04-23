@@ -18,7 +18,7 @@ import * as uuid from 'uuid';
 import * as constants from "./constants.js";
 var Note = /** @class */ (function () {
     function Note() {
-        this.PATH = constants.NOTE_PATH;
+        this.PATH = constants.DATA.NOTE_PATH;
         this.id = uuid.v1();
         this.mdfile = this.PATH + this.id + ".md";
     }

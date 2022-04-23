@@ -1,5 +1,6 @@
 import { GraphBuilder } from './graph.js';
 import { NoteBuilder } from './note.js';
+import * as constants from './constants.js';
 var graph = GraphBuilder.createGraph(GraphBuilder.loadGraphData());
 import express from "express";
 import cors from "cors";
@@ -17,8 +18,10 @@ app.get("/test", function (req, res) {
 app.get("/load-graph", function (req, res) {
     res.send(GraphBuilder.loadGraphData());
 });
-app.get("/create-uncurated-note", function (req, res) {
-    res.send(NoteBuilder.createUncuratedNote());
+app.get(constants.ENDPOINTS.CREATE_UNCURATED_NOTE, function (req, res) {
+    var note = NoteBuilder.createUncuratedNote();
+    console.log(constants.ENDPOINTS.CREATE_UNCURATED_NOTE, " 200 OK ", note);
+    res.send(note);
 });
 app.listen(port, function () {
     console.log("server started at http://localhost:".concat(port));

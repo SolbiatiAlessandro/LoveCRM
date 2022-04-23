@@ -16,7 +16,7 @@ export class Graph extends GraphologyGraph {
 
 export abstract class GraphBuilder {
 	public static GRAPH_NAME: string = "graph.gexf";
-	public static PATH: string = constants.GRAPH_PATH + GraphBuilder.GRAPH_NAME;
+	public static PATH: string = constants.DATA.GRAPH_PATH + GraphBuilder.GRAPH_NAME;
 
 	// no-browser
 	static loadGraphData(): string {

@@ -3,7 +3,7 @@ import * as uuid from 'uuid';
 import * as constants from "./constants.js";
 
 abstract class Note {
-	public readonly PATH: string = constants.NOTE_PATH;
+	public readonly PATH: string = constants.DATA.NOTE_PATH;
 	public mdfile: string;
 	public id: string;
 

@@ -1,5 +1,6 @@
 import {Graph, GraphBuilder} from './graph.js';
 import {NoteBuilder} from './note.js';
+import * as constants from './constants.js';
 
 const graph: Graph = GraphBuilder.createGraph(
 	GraphBuilder.loadGraphData()
@@ -25,8 +26,10 @@ app.get("/load-graph", ( req, res ) => {
 	res.send(GraphBuilder.loadGraphData());
 });
 
-app.get("/create-uncurated-note", ( req, res ) => {
-	res.send(NoteBuilder.createUncuratedNote());
+app.get(constants.ENDPOINTS.CREATE_UNCURATED_NOTE, ( req, res ) => {
+	const note = NoteBuilder.createUncuratedNote();
+	console.log(constants.ENDPOINTS.CREATE_UNCURATED_NOTE, "200 OK", note);
+	res.send(note);
 });
 
 app.listen( port, () => {

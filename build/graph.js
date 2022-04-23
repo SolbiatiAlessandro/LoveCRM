@@ -48,7 +48,7 @@ var GraphBuilder = /** @class */ (function () {
         fs.writeFileSync(GraphBuilder.PATH, gexf.write(graph));
     };
     GraphBuilder.GRAPH_NAME = "graph.gexf";
-    GraphBuilder.PATH = constants.GRAPH_PATH + GraphBuilder.GRAPH_NAME;
+    GraphBuilder.PATH = constants.DATA.GRAPH_PATH + GraphBuilder.GRAPH_NAME;
     return GraphBuilder;
 }());
 export { GraphBuilder };
