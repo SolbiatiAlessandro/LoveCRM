@@ -19,7 +19,7 @@ abstract class Note extends GraphNode {
 
 export class CuratedNote extends Note {
 	constructor(
-		public parent: CuratedNote,
+		public parentUUID: string,
 		public title: string
 	){
 		super();
@@ -38,12 +38,15 @@ export abstract class NoteBuilder {
 
 	static createCuratedNote(
 		graph: Graph,
-		title: string
+		title: string,
+		parentNoteUUID: string
 	){
 		title = title ? title : "Untitled";
-		const note: Note = new CuratedNote(null, title);
+		const note: CuratedNote = new CuratedNote(parentNoteUUID, title);
 		fs.writeFileSync(note.mdfile, "# "+title);
 		graph.add(note);
+		graph.addEdge(note.parentUUID, note.uuid);
+		GraphBuilder.save(graph);
 		return note.mdfile;
 	}
 }

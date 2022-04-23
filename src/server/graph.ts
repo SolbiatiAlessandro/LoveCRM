@@ -19,7 +19,10 @@ export class Graph extends GraphologyGraph {
 	}
 
 	add(node: GraphNode){
-		this.addNode(node.uuid, { node: node });
+		this.addNode(node.uuid, { node: node, 
+								 x: Math.random() * 20 - 10,
+								 y: Math.random() * 20 - 10,
+								});
 	}
 }
 

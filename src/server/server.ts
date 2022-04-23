@@ -26,15 +26,16 @@ app.get("/load-graph", ( req, res ) => {
 
 app.get(constants.ENDPOINTS.CREATE_UNCURATED_NOTE, ( req, res ) => {
 	const note = NoteBuilder.createUncuratedNote();
-	console.log(constants.ENDPOINTS.CREATE_UNCURATED_NOTE, "200 OK", note);
+	console.log(constants.ENDPOINTS.CREATE_UNCURATED_NOTE, req.query, "200 OK", note);
 	res.send(note);
 });
 
 // TODO: with internet, how to do typed requests?
-// title: string
+// title: string 
+// parent: string (uuid of parent note)
 app.get(constants.ENDPOINTS.CREATE_CURATED_NOTE, ( req, res ) => {
-	const note = NoteBuilder.createCuratedNote(graph, req.query.title);
-	console.log(constants.ENDPOINTS.CREATE_CURATED_NOTE, "200 OK", note);
+	const note = NoteBuilder.createCuratedNote(graph, req.query.title, req.query.parent);
+	console.log(constants.ENDPOINTS.CREATE_CURATED_NOTE, req.query, "200 OK", note);
 	res.send(note);
 });
 
