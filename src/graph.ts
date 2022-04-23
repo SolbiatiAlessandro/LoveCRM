@@ -27,17 +27,15 @@ export abstract class GraphBuilder {
 	public static GRAPH_NAME: string = "graph.gexf";
 	public static PATH: string = constants.DATA.GRAPH_PATH + GraphBuilder.GRAPH_NAME;
 
-	// no-browser: if called by client side javascript this will break
-	static loadGraphData(): string {
+	static loadGraphData(){
 		return fs.readFileSync(GraphBuilder.PATH, {'encoding':'utf8'});
 	}
 
-	static loadGraph(graphData: string): Graph{
+	static loadGraph(): Graph{
 		// @ts-ignore
-		return gexf.parse(Graph, graphData);
+		return gexf.parse(Graph, GraphBuilder.loadGraphData());
 	}
 
-	// no-browser: if called by client side javascript this will break
 	static save(graph: Graph){
 		fs.writeFileSync(GraphBuilder.PATH, gexf.write(graph));
 	}

@@ -1,7 +1,7 @@
 import { GraphBuilder } from './graph.js';
 import { NoteBuilder } from './note.js';
 import * as constants from './constants.js';
-var graph = GraphBuilder.loadGraph(GraphBuilder.loadGraphData());
+var graph = GraphBuilder.loadGraph();
 import express from "express";
 import cors from "cors";
 var app = express();

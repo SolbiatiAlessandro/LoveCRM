@@ -1,5 +1,5 @@
 {
-  "type": "module",
+	"type": "module",
   "dependencies": {
     "common": "^0.2.5",
     "cors": "^2.8.5",

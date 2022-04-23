@@ -2,9 +2,7 @@ import {Graph, GraphBuilder} from './graph.js';
 import {NoteBuilder} from './note.js';
 import * as constants from './constants.js';
 
-const graph: Graph = GraphBuilder.loadGraph(
-	GraphBuilder.loadGraphData()
-);
+const graph: Graph = GraphBuilder.loadGraph();
 
 import express from "express";
 import cors from "cors";

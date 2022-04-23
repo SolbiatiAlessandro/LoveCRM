@@ -44,15 +44,13 @@ export { Graph };
 var GraphBuilder = /** @class */ (function () {
     function GraphBuilder() {
     }
-    // no-browser: if called by client side javascript this will break
     GraphBuilder.loadGraphData = function () {
         return fs.readFileSync(GraphBuilder.PATH, { 'encoding': 'utf8' });
     };
-    GraphBuilder.loadGraph = function (graphData) {
+    GraphBuilder.loadGraph = function () {
         // @ts-ignore
-        return gexf.parse(Graph, graphData);
+        return gexf.parse(Graph, GraphBuilder.loadGraphData());
     };
-    // no-browser: if called by client side javascript this will break
     GraphBuilder.save = function (graph) {
         fs.writeFileSync(GraphBuilder.PATH, gexf.write(graph));
     };
