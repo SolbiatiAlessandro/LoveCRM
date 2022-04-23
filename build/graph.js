@@ -17,6 +17,12 @@ import GraphologyGraph from 'graphology';
 import * as gexf from 'graphology-gexf';
 import * as fs from 'fs';
 import * as constants from "./constants.js";
+var GraphNode = /** @class */ (function () {
+    function GraphNode() {
+    }
+    return GraphNode;
+}());
+export { GraphNode };
 var Graph = /** @class */ (function (_super) {
     __extends(Graph, _super);
     function Graph() {
@@ -29,21 +35,24 @@ var Graph = /** @class */ (function (_super) {
         this.addEdge('John', 'John3');
         GraphBuilder.save(this);
     };
+    Graph.prototype.add = function (node) {
+        this.addNode(node.uuid, { node: node });
+    };
     return Graph;
 }(GraphologyGraph));
 export { Graph };
 var GraphBuilder = /** @class */ (function () {
     function GraphBuilder() {
     }
-    // no-browser
+    // no-browser: if called by client side javascript this will break
     GraphBuilder.loadGraphData = function () {
         return fs.readFileSync(GraphBuilder.PATH, { 'encoding': 'utf8' });
     };
-    GraphBuilder.createGraph = function (graphData) {
+    GraphBuilder.loadGraph = function (graphData) {
         // @ts-ignore
         return gexf.parse(Graph, graphData);
     };
-    // no-browser
+    // no-browser: if called by client side javascript this will break
     GraphBuilder.save = function (graph) {
         fs.writeFileSync(GraphBuilder.PATH, gexf.write(graph));
     };

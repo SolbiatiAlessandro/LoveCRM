@@ -16,19 +16,25 @@ var __extends = (this && this.__extends) || (function () {
 import * as fs from 'fs';
 import * as uuid from 'uuid';
 import * as constants from "./constants.js";
-var Note = /** @class */ (function () {
+import { GraphNode } from "./graph.js";
+var Note = /** @class */ (function (_super) {
+    __extends(Note, _super);
     function Note() {
-        this.PATH = constants.DATA.NOTE_PATH;
-        this.id = uuid.v1();
-        this.mdfile = this.PATH + this.id + ".md";
+        var _this = _super.call(this) || this;
+        _this.PATH = constants.DATA.NOTE_PATH;
+        _this.nodeType = constants.NODE_TYPES.NOTE;
+        _this.uuid = uuid.v1();
+        _this.mdfile = _this.PATH + _this.uuid + ".md";
+        return _this;
     }
     return Note;
-}());
+}(GraphNode));
 var CuratedNote = /** @class */ (function (_super) {
     __extends(CuratedNote, _super);
-    function CuratedNote(parent) {
+    function CuratedNote(parent, title) {
         var _this = _super.call(this) || this;
         _this.parent = parent;
+        _this.title = title;
         return _this;
     }
     return CuratedNote;
@@ -48,6 +54,13 @@ var NoteBuilder = /** @class */ (function () {
     NoteBuilder.createUncuratedNote = function () {
         var note = new UncuratedNote();
         fs.writeFileSync(note.mdfile, "");
+        return note.mdfile;
+    };
+    NoteBuilder.createCuratedNote = function (graph, title) {
+        title = title ? title : "Untitled";
+        var note = new CuratedNote(null, title);
+        fs.writeFileSync(note.mdfile, "# " + title);
+        graph.add(note);
         return note.mdfile;
     };
     return NoteBuilder;

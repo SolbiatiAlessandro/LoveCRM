@@ -5,7 +5,7 @@ jQuery.ajax({
     'url': 'http://localhost:8080/load-graph',
     'success': function (res) {
         var graphData = res;
-        var graph = GraphBuilder.createGraph(graphData);
+        var graph = GraphBuilder.loadGraph(graphData);
         var container = document.getElementById("sigma-container");
         var renderer = new Sigma(graph, container);
         console.log(graph.order);
