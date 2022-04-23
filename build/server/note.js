@@ -35,7 +35,9 @@ var Note = /** @class */ (function (_super) {
     Note.prototype.saveValues = function () {
         return utils.mergeDictionaries({
             mdfile: this.mdfile,
-            title: this.title
+            title: this.title,
+            // TODO: figure out how to call pwd from javascript
+            fullpath: "/Users/lessandro/Hacking/LOVECRM/v1_typescript" + this.mdfile.substring(1),
         }, this.additionalSaveValues());
     };
     return Note;

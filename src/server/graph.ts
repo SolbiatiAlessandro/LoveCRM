@@ -13,6 +13,8 @@ export abstract class GraphNode {
 	// this is the representation stored in the graphology node attributes
 	abstract saveValues()
 
+	// TODO: with internet figure out how to automatically place 
+	// nodes in hierarchical way
 	visualisationValues(){
 		return { 
 		 x: Math.random() * 20 - 10,

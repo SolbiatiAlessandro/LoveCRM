@@ -22,6 +22,16 @@ var GraphNode = /** @class */ (function () {
     function GraphNode() {
         this.title = "Untitled";
     }
+    // TODO: with internet figure out how to automatically place 
+    // nodes in hierarchical way
+    GraphNode.prototype.visualisationValues = function () {
+        return {
+            x: Math.random() * 20 - 10,
+            y: Math.random() * 20 - 10,
+            size: 10,
+            label: this.title
+        };
+    };
     return GraphNode;
 }());
 export { GraphNode };
@@ -38,13 +48,7 @@ var Graph = /** @class */ (function (_super) {
         GraphBuilder.save(this);
     };
     Graph.prototype.add = function (node) {
-        this.addNode(node.uuid, utils.mergeDictionaries({
-            node: node,
-            x: Math.random() * 20 - 10,
-            y: Math.random() * 20 - 10,
-            size: 10,
-            label: node.title
-        }, node.saveValues()));
+        this.addNode(node.uuid, utils.mergeDictionaries(node.visualisationValues(), node.saveValues()));
     };
     return Graph;
 }(GraphologyGraph));

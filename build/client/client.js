@@ -9,6 +9,11 @@ jQuery.ajax({
         var graph = gexf.parse(GraphologyGraph, graphData);
         var container = document.getElementById("sigma-container");
         var renderer = new Sigma(graph, container);
+        renderer.on("clickNode", function (_a) {
+            var node = _a.node;
+            console.log("node", node);
+            console.log(graph.getNodeAttributes(node));
+        });
         console.log(graph.order);
         console.log(graph.size);
     }
