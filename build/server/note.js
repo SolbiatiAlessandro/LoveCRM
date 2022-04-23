@@ -16,7 +16,8 @@ var __extends = (this && this.__extends) || (function () {
 import * as fs from 'fs';
 import * as uuid from 'uuid';
 import * as constants from "./constants.js";
-import { GraphNode } from "./graph.js";
+import * as utils from "./utils.js";
+import { GraphNode, GraphBuilder } from "./graph.js";
 var Note = /** @class */ (function (_super) {
     __extends(Note, _super);
     function Note() {
@@ -27,13 +28,23 @@ var Note = /** @class */ (function (_super) {
         _this.mdfile = _this.PATH + _this.uuid + ".md";
         return _this;
     }
+    // overwrite this if you want to store additional values in memory
+    Note.prototype.additionalSaveValues = function () {
+        return {};
+    };
+    Note.prototype.saveValues = function () {
+        return utils.mergeDictionaries({
+            mdfile: this.mdfile,
+            title: this.title
+        }, this.additionalSaveValues());
+    };
     return Note;
 }(GraphNode));
 var CuratedNote = /** @class */ (function (_super) {
     __extends(CuratedNote, _super);
-    function CuratedNote(parent, title) {
+    function CuratedNote(parentUUID, title) {
         var _this = _super.call(this) || this;
-        _this.parent = parent;
+        _this.parentUUID = parentUUID;
         _this.title = title;
         return _this;
     }
@@ -43,7 +54,9 @@ export { CuratedNote };
 var UncuratedNote = /** @class */ (function (_super) {
     __extends(UncuratedNote, _super);
     function UncuratedNote() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super.call(this) || this;
+        _this.title = "UncuratedNote" + _this.uuid;
+        return _this;
     }
     return UncuratedNote;
 }(Note));
@@ -56,11 +69,15 @@ var NoteBuilder = /** @class */ (function () {
         fs.writeFileSync(note.mdfile, "");
         return note.mdfile;
     };
-    NoteBuilder.createCuratedNote = function (graph, title) {
+    NoteBuilder.createCuratedNote = function (graph, title, parentNoteUUID) {
         title = title ? title : "Untitled";
-        var note = new CuratedNote(null, title);
+        var note = new CuratedNote(parentNoteUUID, title);
         fs.writeFileSync(note.mdfile, "# " + title);
         graph.add(note);
+        if (parentNoteUUID) {
+            graph.addEdge(note.parentUUID, note.uuid);
+        }
+        GraphBuilder.save(graph);
         return note.mdfile;
     };
     return NoteBuilder;

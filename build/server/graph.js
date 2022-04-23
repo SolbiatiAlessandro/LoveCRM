@@ -17,8 +17,10 @@ import GraphologyGraph from 'graphology';
 import * as gexf from 'graphology-gexf';
 import * as fs from 'fs';
 import * as constants from "./constants.js";
+import * as utils from "./utils.js";
 var GraphNode = /** @class */ (function () {
     function GraphNode() {
+        this.title = "Untitled";
     }
     return GraphNode;
 }());
@@ -36,7 +38,13 @@ var Graph = /** @class */ (function (_super) {
         GraphBuilder.save(this);
     };
     Graph.prototype.add = function (node) {
-        this.addNode(node.uuid, { node: node });
+        this.addNode(node.uuid, utils.mergeDictionaries({
+            node: node,
+            x: Math.random() * 20 - 10,
+            y: Math.random() * 20 - 10,
+            size: 10,
+            label: node.title
+        }, node.saveValues()));
     };
     return Graph;
 }(GraphologyGraph));

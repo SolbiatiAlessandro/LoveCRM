@@ -2,11 +2,25 @@ import GraphologyGraph from 'graphology';
 import * as gexf from 'graphology-gexf';
 import * as fs from 'fs';
 import * as constants from "./constants.js";
+import * as utils from "./utils.js";
 
 export abstract class GraphNode {
 	// TODO: with internet figure out how to define new types
 	public abstract nodeType: string; // union type constant.NODE_TYPES
 	public abstract uuid: string;
+	public title: string = "Untitled";
+
+	// this is the representation stored in the graphology node attributes
+	abstract saveValues()
+
+	visualisationValues(){
+		return { 
+		 x: Math.random() * 20 - 10,
+		 y: Math.random() * 20 - 10,
+		 size: 10,
+		 label: this.title
+		}
+	}
 }
 
 export class Graph extends GraphologyGraph {
@@ -19,10 +33,11 @@ export class Graph extends GraphologyGraph {
 	}
 
 	add(node: GraphNode){
-		this.addNode(node.uuid, { node: node, 
-								 x: Math.random() * 20 - 10,
-								 y: Math.random() * 20 - 10,
-								});
+		this.addNode(
+			node.uuid, 
+			utils.mergeDictionaries(
+				node.visualisationValues(), 
+				node.saveValues()));
 	}
 }
 

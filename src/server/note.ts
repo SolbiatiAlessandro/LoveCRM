@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as uuid from 'uuid';
 import * as constants from "./constants.js";
+import * as utils from "./utils.js";
 import { Graph, GraphNode, GraphBuilder } from "./graph.js";
 
 abstract class Note extends GraphNode {
@@ -8,6 +9,19 @@ abstract class Note extends GraphNode {
 	public mdfile: string;
 	public uuid: string;
 	public nodeType: string = constants.NODE_TYPES.NOTE;
+
+	// overwrite this if you want to store additional values in memory
+	additionalSaveValues() {
+		return {}
+	}
+
+	saveValues(){
+		return utils.mergeDictionaries(
+			{
+				mdfile: this.mdfile,
+				title: this.title
+			}, this.additionalSaveValues());
+	}
 
 	constructor(){
 		super();
@@ -27,6 +41,10 @@ export class CuratedNote extends Note {
 }
 
 export class UncuratedNote extends Note {
+	constructor(){
+		super();
+		this.title = "UncuratedNote" + this.uuid;
+	}
 }
 
 export abstract class NoteBuilder {
@@ -45,7 +63,9 @@ export abstract class NoteBuilder {
 		const note: CuratedNote = new CuratedNote(parentNoteUUID, title);
 		fs.writeFileSync(note.mdfile, "# "+title);
 		graph.add(note);
-		graph.addEdge(note.parentUUID, note.uuid);
+		if (parentNoteUUID){
+			graph.addEdge(note.parentUUID, note.uuid);
+		}
 		GraphBuilder.save(graph);
 		return note.mdfile;
 	}
