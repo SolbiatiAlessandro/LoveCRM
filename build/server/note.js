@@ -57,7 +57,7 @@ var UncuratedNote = /** @class */ (function (_super) {
     __extends(UncuratedNote, _super);
     function UncuratedNote() {
         var _this = _super.call(this) || this;
-        _this.title = "UncuratedNote" + _this.uuid;
+        _this.title = Date();
         return _this;
     }
     return UncuratedNote;
@@ -66,10 +66,17 @@ export { UncuratedNote };
 var NoteBuilder = /** @class */ (function () {
     function NoteBuilder() {
     }
-    NoteBuilder.createUncuratedNote = function () {
+    NoteBuilder.createUncuratedNote = function (graph) {
         var note = new UncuratedNote();
-        fs.writeFileSync(note.mdfile, "");
+        fs.writeFileSync(note.mdfile, "\n".repeat(100) + note.uuid);
+        graph.add(note);
+        GraphBuilder.save(graph);
         return note.mdfile;
+    };
+    NoteBuilder.referenceCuratedNote = function (graph, uncuratedNoteUUID, curatedNoteUUID) {
+        graph.addEdge(curatedNoteUUID, uncuratedNoteUUID);
+        // TODO: overwrite addEdge and save graph
+        GraphBuilder.save(graph);
     };
     NoteBuilder.createCuratedNote = function (graph, title, parentNoteUUID) {
         title = title ? title : "Untitled";

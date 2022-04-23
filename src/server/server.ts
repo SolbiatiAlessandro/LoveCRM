@@ -25,8 +25,9 @@ app.get("/load-graph", ( req, res ) => {
 });
 
 app.get(constants.ENDPOINTS.CREATE_UNCURATED_NOTE, ( req, res ) => {
-	const note = NoteBuilder.createUncuratedNote();
-	console.log(constants.ENDPOINTS.CREATE_UNCURATED_NOTE, req.query, "200 OK", note);
+	console.log(constants.ENDPOINTS.CREATE_UNCURATED_NOTE, req.query);
+	const note = NoteBuilder.createUncuratedNote(graph);
+	console.log("200 OK", note);
 	res.send(note);
 });
 
@@ -34,11 +35,24 @@ app.get(constants.ENDPOINTS.CREATE_UNCURATED_NOTE, ( req, res ) => {
 // title: string 
 // parent: string (uuid of parent note)
 app.get(constants.ENDPOINTS.CREATE_CURATED_NOTE, ( req, res ) => {
+	console.log(constants.ENDPOINTS.CREATE_CURATED_NOTE, req.query);
 	const note = NoteBuilder.createCuratedNote(graph, req.query.title, req.query.parent);
-	console.log(constants.ENDPOINTS.CREATE_CURATED_NOTE, req.query, "200 OK", note);
+	console.log("200 OK", note);
 	res.send(note);
 });
 
+// uncuratedNoteUUID: uuid
+// curatedNoteUUID: uuid
+app.get(constants.ENDPOINTS.REFERENCE_CURATED_NOTE, ( req, res ) => {
+	console.log(constants.ENDPOINTS.REFERENCE_CURATED_NOTE, req.query);
+  NoteBuilder.referenceCuratedNote(
+		graph, 
+		req.query.uncuratedNoteUUID, 
+		req.query.curatedNoteUUID
+	);
+	console.log("200 OK");
+	res.sendStatus(200);
+});
+
 app.listen( port, () => {
-    console.log( `server started at http://localhost:${ port }` );
-} );
+    console.log( `server started at http://localhost:${ port }` ); } );

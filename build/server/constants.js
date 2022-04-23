@@ -12,6 +12,7 @@ var ENDPOINTS = /** @class */ (function () {
     }
     ENDPOINTS.CREATE_UNCURATED_NOTE = "/create-uncurated-note";
     ENDPOINTS.CREATE_CURATED_NOTE = "/create-curated-note";
+    ENDPOINTS.REFERENCE_CURATED_NOTE = "/reference-curated-note";
     return ENDPOINTS;
 }());
 export { ENDPOINTS };

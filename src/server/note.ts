@@ -48,20 +48,21 @@ export class UncuratedNote extends Note {
 		this.title = Date();
 	}
 
-	curatedNoteReference(graph: Graph, curatedNoteUUID: string){
-		graph.addEdge(curatedNoteUUID, this.uuid);
-		// TODO: overwrite addEdge and save graph
-		GraphBuilder.save(graph);
-	}
 }
 
 export abstract class NoteBuilder {
 	static createUncuratedNote(graph: Graph){
 		const note: Note = new UncuratedNote();
-		fs.writeFileSync(note.mdfile, "");
+		fs.writeFileSync(note.mdfile, "\n".repeat(100) + note.uuid);
 		graph.add(note);
 		GraphBuilder.save(graph);
 		return note.mdfile;
+	}
+
+	static referenceCuratedNote(graph: Graph, uncuratedNoteUUID: string, curatedNoteUUID: string){
+		graph.addEdge(curatedNoteUUID, uncuratedNoteUUID);
+		// TODO: overwrite addEdge and save graph
+		GraphBuilder.save(graph);
 	}
 
 	static createCuratedNote(
