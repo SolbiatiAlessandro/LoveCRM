@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf version="1.2" xmlns="http://www.gexf.net/1.2draft" xmlns:viz="http:///www.gexf.net/1.1draft/viz">
+  <meta/>
+  <graph defaultedgetype="directed">
+    <attributes class="node">
+      <attribute id="mdfile" title="mdfile" type="string"/>
+      <attribute id="title" title="title" type="string"/>
+      <attribute id="fullpath" title="fullpath" type="string"/>
+    </attributes>
+    <nodes>
+      <node id="514ee320-c305-11ec-8f87-99515219517a" label="asd">
+        <attvalues>
+          <attvalue for="mdfile" value="./data/public/testgraph/markdown/514ee320-c305-11ec-8f87-99515219517a.md"/>
+          <attvalue for="title" value="asd"/>
+          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/public/testgraph/markdown/514ee320-c305-11ec-8f87-99515219517a.md"/>
+        </attvalues>
+        <viz:size value="10"/>
+        <viz:position x="1.7757353683710164" y="8.229098048090009"/>
+      </node>
+      <node id="7b5f78f0-c305-11ec-8c2e-bdfcc36588c3" label="as2d">
+        <attvalues>
+          <attvalue for="mdfile" value="./data/public/testgraph/markdown/7b5f78f0-c305-11ec-8c2e-bdfcc36588c3.md"/>
+          <attvalue for="title" value="as2d"/>
+          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/public/testgraph/markdown/7b5f78f0-c305-11ec-8c2e-bdfcc36588c3.md"/>
+        </attvalues>
+        <viz:size value="10"/>
+        <viz:position x="0.6390547487313114" y="-7.521575604740622"/>
+      </node>
+    </nodes>
+    <edges>
+      <edge id="geid_30_0" source="514ee320-c305-11ec-8f87-99515219517a" target="7b5f78f0-c305-11ec-8c2e-bdfcc36588c3"/>
+    </edges>
+  </graph>
+</gexf>

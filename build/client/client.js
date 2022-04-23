@@ -11,8 +11,8 @@ jQuery.ajax({
         var renderer = new Sigma(graph, container);
         renderer.on("clickNode", function (_a) {
             var node = _a.node;
-            console.log("node", node);
-            console.log(graph.getNodeAttributes(node));
+            var attr = graph.getNodeAttributes(node);
+            console.log(attr['fullpath']);
         });
         console.log(graph.order);
         console.log(graph.size);

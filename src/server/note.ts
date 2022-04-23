@@ -5,7 +5,7 @@ import * as utils from "./utils.js";
 import { Graph, GraphNode, GraphBuilder } from "./graph.js";
 
 abstract class Note extends GraphNode {
-	public readonly PATH: string = constants.DATA.NOTE_PATH;
+	public readonly PATH: string = GraphBuilder.GRAPHS[1] + constants.DATA.NOTE_PATH;
 	public mdfile: string;
 	public uuid: string;
 	public nodeType: string = constants.NODE_TYPES.NOTE;

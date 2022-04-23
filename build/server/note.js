@@ -22,7 +22,7 @@ var Note = /** @class */ (function (_super) {
     __extends(Note, _super);
     function Note() {
         var _this = _super.call(this) || this;
-        _this.PATH = constants.DATA.NOTE_PATH;
+        _this.PATH = GraphBuilder.GRAPHS[1] + constants.DATA.NOTE_PATH;
         _this.nodeType = constants.NODE_TYPES.NOTE;
         _this.uuid = uuid.v1();
         _this.mdfile = _this.PATH + _this.uuid + ".md";

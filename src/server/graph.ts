@@ -44,16 +44,23 @@ export class Graph extends GraphologyGraph {
 }
 
 export abstract class GraphBuilder {
+	// TODO: figure out how to do os commands from node
+	// and get list of graph as `ls data/[*/*:graphs]`
+	public static GRAPHS = ['./data/private/lovegraph/', './data/public/testgraph/']
 	public static GRAPH_NAME: string = "graph.gexf";
-	public static PATH: string = constants.DATA.GRAPH_PATH + GraphBuilder.GRAPH_NAME;
+	public static PATH: string = GraphBuilder.GRAPHS[1] + GraphBuilder.GRAPH_NAME;
 
 	static loadGraphData(){
 		return fs.readFileSync(GraphBuilder.PATH, {'encoding':'utf8'});
 	}
 
 	static loadGraph(): Graph{
-		// @ts-ignore
-		return gexf.parse(Graph, GraphBuilder.loadGraphData());
+		try{
+			// @ts-ignore
+			return gexf.parse(Graph, GraphBuilder.loadGraphData());
+		}	catch {
+			return new Graph();
+		}
 	}
 
 	static save(graph: Graph){

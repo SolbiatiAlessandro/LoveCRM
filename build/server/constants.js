@@ -1,8 +1,9 @@
 var DATA = /** @class */ (function () {
     function DATA() {
     }
-    DATA.NOTE_PATH = "./data/markdown/";
-    DATA.GRAPH_PATH = "./data/graph/";
+    DATA.NOTE_PATH = "markdown/";
+    DATA.IMAGE_PATH = "imgs/";
+    DATA.GRAPH_PATH = "./data/";
     return DATA;
 }());
 export { DATA };

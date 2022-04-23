@@ -1,6 +1,7 @@
 export abstract class DATA {
-	public static readonly NOTE_PATH = "./data/markdown/";
-	public static readonly GRAPH_PATH = "./data/graph/";
+	public static readonly NOTE_PATH = "markdown/";
+	public static readonly IMAGE_PATH = "imgs/";
+	public static readonly GRAPH_PATH = "./data/";
 }
 
 export abstract class ENDPOINTS {

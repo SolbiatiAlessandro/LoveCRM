@@ -16,7 +16,6 @@ var __extends = (this && this.__extends) || (function () {
 import GraphologyGraph from 'graphology';
 import * as gexf from 'graphology-gexf';
 import * as fs from 'fs';
-import * as constants from "./constants.js";
 import * as utils from "./utils.js";
 var GraphNode = /** @class */ (function () {
     function GraphNode() {
@@ -60,14 +59,22 @@ var GraphBuilder = /** @class */ (function () {
         return fs.readFileSync(GraphBuilder.PATH, { 'encoding': 'utf8' });
     };
     GraphBuilder.loadGraph = function () {
-        // @ts-ignore
-        return gexf.parse(Graph, GraphBuilder.loadGraphData());
+        try {
+            // @ts-ignore
+            return gexf.parse(Graph, GraphBuilder.loadGraphData());
+        }
+        catch (_a) {
+            return new Graph();
+        }
     };
     GraphBuilder.save = function (graph) {
         fs.writeFileSync(GraphBuilder.PATH, gexf.write(graph));
     };
+    // TODO: figure out how to do os commands from node
+    // and get list of graph as `ls data/[*/*:graphs]`
+    GraphBuilder.GRAPHS = ['./data/private/lovegraph/', './data/public/testgraph/'];
     GraphBuilder.GRAPH_NAME = "graph.gexf";
-    GraphBuilder.PATH = constants.DATA.GRAPH_PATH + GraphBuilder.GRAPH_NAME;
+    GraphBuilder.PATH = GraphBuilder.GRAPHS[1] + GraphBuilder.GRAPH_NAME;
     return GraphBuilder;
 }());
 export { GraphBuilder };
