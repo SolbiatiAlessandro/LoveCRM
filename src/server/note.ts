@@ -51,9 +51,10 @@ export class UncuratedNote extends Note {
 }
 
 export abstract class NoteBuilder {
+	public static readonly NOTE_FOOTER = "\n".repeat(100);
 	static createUncuratedNote(graph: Graph){
 		const note: Note = new UncuratedNote();
-		fs.writeFileSync(note.mdfile, "\n".repeat(100) + note.uuid);
+		fs.writeFileSync(note.mdfile, NoteBuilder.NOTE_FOOTER+note.uuid);
 		graph.add(note);
 		GraphBuilder.save(graph);
 		return note.mdfile;
@@ -72,7 +73,7 @@ export abstract class NoteBuilder {
 	){
 		title = title ? title : "Untitled";
 		const note: CuratedNote = new CuratedNote(parentNoteUUID, title);
-		fs.writeFileSync(note.mdfile, "# "+title);
+		fs.writeFileSync(note.mdfile, "# "+title+NoteBuilder.NOTE_FOOTER+note.uuid);
 		graph.add(note);
 		if (parentNoteUUID){
 			graph.addEdge(note.parentUUID, note.uuid);
