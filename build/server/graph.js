@@ -73,8 +73,9 @@ var GraphBuilder = /** @class */ (function () {
     // TODO: figure out how to do os commands from node
     // and get list of graph as `ls data/[*/*:graphs]`
     GraphBuilder.GRAPHS = ['./data/private/lovegraph/', './data/public/testgraph/'];
+    GraphBuilder.CURRENT_GRAPH = GraphBuilder.GRAPHS[0];
     GraphBuilder.GRAPH_NAME = "graph.gexf";
-    GraphBuilder.PATH = GraphBuilder.GRAPHS[1] + GraphBuilder.GRAPH_NAME;
+    GraphBuilder.PATH = GraphBuilder.CURRENT_GRAPH + GraphBuilder.GRAPH_NAME;
     return GraphBuilder;
 }());
 export { GraphBuilder };

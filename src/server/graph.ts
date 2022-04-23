@@ -47,8 +47,9 @@ export abstract class GraphBuilder {
 	// TODO: figure out how to do os commands from node
 	// and get list of graph as `ls data/[*/*:graphs]`
 	public static GRAPHS = ['./data/private/lovegraph/', './data/public/testgraph/']
+	public static CURRENT_GRAPH = GraphBuilder.GRAPHS[0];
 	public static GRAPH_NAME: string = "graph.gexf";
-	public static PATH: string = GraphBuilder.GRAPHS[1] + GraphBuilder.GRAPH_NAME;
+	public static PATH: string = GraphBuilder.CURRENT_GRAPH + GraphBuilder.GRAPH_NAME;
 
 	static loadGraphData(){
 		return fs.readFileSync(GraphBuilder.PATH, {'encoding':'utf8'});

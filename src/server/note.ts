@@ -5,7 +5,7 @@ import * as utils from "./utils.js";
 import { Graph, GraphNode, GraphBuilder } from "./graph.js";
 
 abstract class Note extends GraphNode {
-	public readonly PATH: string = GraphBuilder.GRAPHS[1] + constants.DATA.NOTE_PATH;
+	public readonly PATH: string = GraphBuilder.CURRENT_GRAPH + constants.DATA.NOTE_PATH;
 	public mdfile: string;
 	public uuid: string;
 	public nodeType: string = constants.NODE_TYPES.NOTE;
@@ -45,14 +45,22 @@ export class CuratedNote extends Note {
 export class UncuratedNote extends Note {
 	constructor(){
 		super();
-		this.title = "UncuratedNote" + this.uuid;
+		this.title = Date();
+	}
+
+	curatedNoteReference(graph: Graph, curatedNoteUUID: string){
+		graph.addEdge(curatedNoteUUID, this.uuid);
+		// TODO: overwrite addEdge and save graph
+		GraphBuilder.save(graph);
 	}
 }
 
 export abstract class NoteBuilder {
-	static createUncuratedNote(){
+	static createUncuratedNote(graph: Graph){
 		const note: Note = new UncuratedNote();
 		fs.writeFileSync(note.mdfile, "");
+		graph.add(note);
+		GraphBuilder.save(graph);
 		return note.mdfile;
 	}
 
