@@ -18,7 +18,7 @@
     "os": false
   },
   "scripts": {
-    "server": "npx tsc && node ./build/server.js",
-    "client": "node ./node_modules/kotatsu/cli.js serve --typescript src/client.ts --public / ./public"
+    "server": "npx tsc && node ./build/server/server.js",
+    "client": "node ./node_modules/kotatsu/cli.js serve --typescript src/client/client.ts --public / ./public"
   }
 }
