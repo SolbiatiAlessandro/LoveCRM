@@ -33,8 +33,8 @@ app.get(constants.ENDPOINTS.CREATE_CURATED_NOTE, function (req, res) {
     console.log("200 OK", note);
     res.send(note);
 });
-// uncurated_note: uuid
-// curated_note: uuid
+// uncuratedNoteUUID: uuid
+// curatedNoteUUID: uuid
 app.get(constants.ENDPOINTS.REFERENCE_CURATED_NOTE, function (req, res) {
     console.log(constants.ENDPOINTS.REFERENCE_CURATED_NOTE, req.query);
     NoteBuilder.referenceCuratedNote(graph, req.query.uncuratedNoteUUID, req.query.curatedNoteUUID);

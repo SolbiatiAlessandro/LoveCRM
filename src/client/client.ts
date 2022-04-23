@@ -16,5 +16,6 @@ jQuery.ajax( {
 		});
 		console.log(graph.order);
 		console.log(graph.size);
+		console.log("\n".repeat(50));
 	}
 });

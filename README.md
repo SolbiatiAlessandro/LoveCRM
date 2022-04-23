@@ -23,7 +23,16 @@ npm run server
 npm run client
 ```
 
-## Command Line 
-```
-sh bin/note.sh
-```
+## Workflow
+
+Decide which graph to use by editing server/graph js file
+
+Write uncurated note ( sh bin/note.sh)
+
+Open up browser at http://localhost:3000 and split screen in two
+
+You can open curated notes by clicking on them in the graph and copying the url printed at console log, open both in chrome or vim
+
+As you write uncurated note you can reference existing curated notes with ( sh bin/reference-curated-note <uncurated-note-uuid> <curated-note-uuid> ) The uuids are both at bottom of note and also in the browser console log
+
+Write curated note ( sh bin/curated-note.sh <title> <parent-uuid>)
