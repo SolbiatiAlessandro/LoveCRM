@@ -16,6 +16,7 @@ var __extends = (this && this.__extends) || (function () {
 import GraphologyGraph from 'graphology';
 import * as gexf from 'graphology-gexf';
 import * as fs from 'fs';
+import * as constants from "./constants.js";
 var Graph = /** @class */ (function (_super) {
     __extends(Graph, _super);
     function Graph() {
@@ -46,7 +47,8 @@ var GraphBuilder = /** @class */ (function () {
     GraphBuilder.save = function (graph) {
         fs.writeFileSync(GraphBuilder.PATH, gexf.write(graph));
     };
-    GraphBuilder.PATH = './data/graph.gexf';
+    GraphBuilder.GRAPH_NAME = "graph.gexf";
+    GraphBuilder.PATH = constants.GRAPH_PATH + GraphBuilder.GRAPH_NAME;
     return GraphBuilder;
 }());
 export { GraphBuilder };

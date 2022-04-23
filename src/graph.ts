@@ -1,6 +1,7 @@
 import GraphologyGraph from 'graphology';
 import * as gexf from 'graphology-gexf';
 import * as fs from 'fs';
+import * as constants from "./constants.js";
 
 
 export class Graph extends GraphologyGraph {
@@ -14,7 +15,8 @@ export class Graph extends GraphologyGraph {
 }
 
 export abstract class GraphBuilder {
-	public static PATH: string = './data/graph.gexf';
+	public static GRAPH_NAME: string = "graph.gexf";
+	public static PATH: string = constants.GRAPH_PATH + GraphBuilder.GRAPH_NAME;
 
 	// no-browser
 	static loadGraphData(): string {
