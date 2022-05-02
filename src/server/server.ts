@@ -54,5 +54,17 @@ app.get(constants.ENDPOINTS.REFERENCE_CURATED_NOTE, ( req, res ) => {
 	res.sendStatus(200);
 });
 
+// noteUUID: uuid
+app.get(constants.ENDPOINTS.EDIT_NOTE, ( req, res ) => {
+	console.log(constants.ENDPOINTS.EDIT_NOTE, req.query);
+	NoteBuilder.noteEvent(
+		graph,
+		req.query.noteUUID,
+		constants.EVENT_TYPE.EDIT
+	);
+	console.log("200 OK");
+	res.sendStatus(200);
+});
+
 app.listen( port, () => {
     console.log( `server started at http://localhost:${ port }` ); } );

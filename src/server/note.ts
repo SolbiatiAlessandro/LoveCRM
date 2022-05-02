@@ -28,6 +28,13 @@ abstract class Note extends GraphNode {
 			}, this.additionalSaveValues());
 	}
 
+	static addEvent(events: string, eventType: string) {
+		const _events = JSON.parse(events);
+		const editEvent = new Event(eventType);
+		_events.push(editEvent.saveValues());
+		return JSON.stringify(_events);
+	}
+
 	constructor(){
 		super();
 		this.uuid = uuid.v1();
@@ -86,6 +93,14 @@ export abstract class NoteBuilder {
 		}
 		GraphBuilder.save(graph);
 		return note.mdfile;
+	}
+
+	static noteEvent(graph: Graph, noteUUID: string, eventType: string){
+		graph.updateNode(noteUUID, function(attr){
+			attr['events'] = Note.addEvent(attr['events'], eventType);
+			return attr;
+		});
+		GraphBuilder.save(graph);
 	}
 }
 
