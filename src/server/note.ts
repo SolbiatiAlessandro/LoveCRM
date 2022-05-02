@@ -41,6 +41,14 @@ export class UncuratedNote extends Note {
 	}
 }
 
+export class Person extends Note {
+	public nodeType: string = constants.NODE_TYPES.PERSON;
+	constructor(personName){
+		super();
+		this.title = personName;
+	}
+}
+
 export abstract class NoteBuilder {
 	public static readonly NOTE_FOOTER = "\n".repeat(100);
 	static createUncuratedNote(graph: Graph){
@@ -73,6 +81,17 @@ export abstract class NoteBuilder {
 		}
 		GraphBuilder.save(graph);
 		return note.mdfile;
+	}
+
+	static createPerson(
+		graph: Graph,
+		personName: string,
+	){
+		const person: Person = new Person(personName	);
+		fs.writeFileSync(person.mdfile, "# "+personName+NoteBuilder.NOTE_FOOTER+person.uuid);
+		graph.add(person);
+		GraphBuilder.save(graph);
+		return person.mdfile;
 	}
 
 	static noteEvent(graph: Graph, noteUUID: string, eventType: string){
