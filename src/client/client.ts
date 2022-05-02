@@ -16,23 +16,41 @@ function printEvents(graph, node){
 		});
 }
 
-function onClick(graph, node){
+function onNodeClick({ node }){
+	loadGraph(function(graph){
+		// 1) URL to clipboard
 		const attr = graph.getNodeAttributes(node);
 		const fullpath = attr['fullpath']; 
 		navigator.clipboard.writeText(fullpath);
 
+		// 2) Events
+		console.log(`> EVENTS FOR ${ attr['title'] }`);
 		printEvents(graph, node)
-
-		graph.neighbors(node).forEach(node => printEvents(graph, node));
+		graph.neighbors(node).forEach(node => {
+			const attr = graph.getNodeAttributes(node);
+			if (attr['nodetype'] == "UNCURATED_NOTE"){
+				printEvents(graph, node)
+			}
+		});
+	});
 }
 
-function loadGraph(graphData){
-		const graph = gexf.parse(GraphologyGraph, graphData);
+function loadGraph(callback){
+	jQuery.ajax( {
+		'url': 'http://localhost:8080/load-graph',
+		'success': function(graphData){
+				const graph =  gexf.parse(GraphologyGraph, graphData);
+				callback(graph);
+		}
+	});
+}
+
+function renderGraph(graph){
 		circular.assign(graph);
 		const container = document.getElementById("sigma-container") as HTMLElement;
 
 		const renderer = new Sigma(graph, container);
-		renderer.on("clickNode", ({ node }) => {onClick(graph, node)});
+		renderer.on("clickNode", onNodeClick);
 
 		renderer.setSetting("nodeReducer", (node, data) => {
 			const res: Partial<NodeDisplayData> = { ...data };
@@ -41,10 +59,7 @@ function loadGraph(graphData){
 			}
 			return res;
 		});
-		return graph;
 }
 
-jQuery.ajax( {
-	'url': 'http://localhost:8080/load-graph',
-	'success':loadGraph
-});
+loadGraph(renderGraph);
+
