@@ -13,9 +13,11 @@ var ENDPOINTS = /** @class */ (function () {
     ENDPOINTS.CREATE_UNCURATED_NOTE = "/create-uncurated-note";
     ENDPOINTS.CREATE_CURATED_NOTE = "/create-curated-note";
     ENDPOINTS.REFERENCE_CURATED_NOTE = "/reference-curated-note";
+    ENDPOINTS.EDIT_NOTE = "/edit-note";
     return ENDPOINTS;
 }());
 export { ENDPOINTS };
+// TODO: make enum
 var NODE_TYPES = /** @class */ (function () {
     function NODE_TYPES() {
     }
@@ -24,3 +26,14 @@ var NODE_TYPES = /** @class */ (function () {
     return NODE_TYPES;
 }());
 export { NODE_TYPES };
+// TODO: make enum
+var EVENT_TYPE = /** @class */ (function () {
+    function EVENT_TYPE() {
+    }
+    EVENT_TYPE.CREATE = "CREATE";
+    EVENT_TYPE.OPEN = "OPEN";
+    EVENT_TYPE.EDIT = "EDIT";
+    EVENT_TYPE.CLOSE = "CLOSE";
+    return EVENT_TYPE;
+}());
+export { EVENT_TYPE };

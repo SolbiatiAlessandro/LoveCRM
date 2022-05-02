@@ -18,13 +18,17 @@ import * as uuid from 'uuid';
 import * as constants from "./constants.js";
 import * as utils from "./utils.js";
 import { GraphNode, GraphBuilder } from "./graph.js";
+import { Event } from "./event.js";
 var Note = /** @class */ (function (_super) {
     __extends(Note, _super);
     function Note() {
         var _this = _super.call(this) || this;
         _this.PATH = GraphBuilder.CURRENT_GRAPH + constants.DATA.NOTE_PATH;
+        _this.events = [];
         _this.uuid = uuid.v1();
         _this.mdfile = _this.PATH + _this.uuid + ".md";
+        _this.events.push(new Event(constants.EVENT_TYPE.CREATE));
+        _this.events.push(new Event(constants.EVENT_TYPE.CREATE));
         return _this;
     }
     // overwrite this if you want to store additional values in memory
@@ -38,7 +42,14 @@ var Note = /** @class */ (function (_super) {
             // TODO: figure out how to call pwd from javascript
             fullpath: "/Users/lessandro/Hacking/LOVECRM/v1_typescript" + this.mdfile.substring(1),
             nodetype: this.nodeType,
+            events: JSON.stringify(this.events.map(function (event) { return event.saveValues(); }))
         }, this.additionalSaveValues());
+    };
+    Note.addEvent = function (events, eventType) {
+        var _events = JSON.parse(events);
+        var editEvent = new Event(eventType);
+        _events.push(editEvent.saveValues());
+        return JSON.stringify(_events);
     };
     return Note;
 }(GraphNode));
@@ -90,6 +101,13 @@ var NoteBuilder = /** @class */ (function () {
         }
         GraphBuilder.save(graph);
         return note.mdfile;
+    };
+    NoteBuilder.noteEvent = function (graph, noteUUID, eventType) {
+        graph.updateNode(noteUUID, function (attr) {
+            attr['events'] = Note.addEvent(attr['events'], eventType);
+            return attr;
+        });
+        GraphBuilder.save(graph);
     };
     NoteBuilder.NOTE_FOOTER = "\n".repeat(100);
     return NoteBuilder;

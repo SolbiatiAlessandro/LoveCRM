@@ -5,6 +5,17 @@ import * as gexf from 'graphology-gexf';
 import GraphologyGraph from 'graphology';
 import {circular} from 'graphology-layout';
 
+function printEvents(graph, node){
+		const attr = graph.getNodeAttributes(node);
+		console.log(attr['nodetype'], attr['title']);
+		const events = JSON.parse(attr['events']);
+		events.forEach(event => {
+			// see server/event.ts
+			const date = new Date(event[1]);
+			console.log(`${ date.getHours() }:${ date.getMinutes() }  ${event[0]} - (${date})`); 
+		});
+}
+
 jQuery.ajax( {
 	'url': 'http://localhost:8080/load-graph',
 	'success':function(res){
@@ -17,8 +28,11 @@ jQuery.ajax( {
 		renderer.on("clickNode", ({ node }) => {
 			const attr = graph.getNodeAttributes(node);
 			const fullpath = attr['fullpath']; 
-			console.log( attr );
 			navigator.clipboard.writeText(fullpath);
+
+			printEvents(graph, node)
+
+			graph.neighbors(node).forEach(node => printEvents(graph, node));
 		});
 
 		renderer.setSetting("nodeReducer", (node, data) => {

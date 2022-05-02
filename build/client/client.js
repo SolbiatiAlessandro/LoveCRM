@@ -26,7 +26,8 @@ jQuery.ajax({
             var node = _a.node;
             var attr = graph.getNodeAttributes(node);
             var fullpath = attr['fullpath'];
-            console.log(attr);
+            console.log("EVENTS");
+            attr['events'].forEach(function (event) { return console.log(event); });
             navigator.clipboard.writeText(fullpath);
         });
         renderer.setSetting("nodeReducer", function (node, data) {

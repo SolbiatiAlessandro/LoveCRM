@@ -6,72 +6,116 @@
       <attribute id="mdfile" title="mdfile" type="string"/>
       <attribute id="title" title="title" type="string"/>
       <attribute id="fullpath" title="fullpath" type="string"/>
+      <attribute id="nodetype" title="nodetype" type="string"/>
+      <attribute id="events" title="events" type="string"/>
     </attributes>
     <nodes>
-      <node id="514ee320-c305-11ec-8f87-99515219517a" label="asd">
+      <node id="33795fb0-c9c7-11ec-8db6-6760f2b49fd3" label="Mon May 02 2022 04:23:14 GMT+0100 (British Summer Time)">
         <attvalues>
-          <attvalue for="mdfile" value="./data/public/testgraph/markdown/514ee320-c305-11ec-8f87-99515219517a.md"/>
-          <attvalue for="title" value="asd"/>
-          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/public/testgraph/markdown/514ee320-c305-11ec-8f87-99515219517a.md"/>
+          <attvalue for="mdfile" value="./data/public/testgraph/markdown/33795fb0-c9c7-11ec-8db6-6760f2b49fd3.md"/>
+          <attvalue for="title" value="Mon May 02 2022 04:23:14 GMT+0100 (British Summer Time)"/>
+          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/public/testgraph/markdown/33795fb0-c9c7-11ec-8db6-6760f2b49fd3.md"/>
+          <attvalue for="nodetype" value="UNCURATED_NOTE"/>
+        </attvalues>
+        <viz:size value="10"/>
+        <viz:position x="-7.108474441134716" y="1.325401554145568"/>
+      </node>
+      <node id="dcb6b8c0-c9c7-11ec-93ab-37f979c3cc59" label="Mon May 02 2022 04:27:58 GMT+0100 (British Summer Time)">
+        <attvalues>
+          <attvalue for="mdfile" value="./data/public/testgraph/markdown/dcb6b8c0-c9c7-11ec-93ab-37f979c3cc59.md"/>
+          <attvalue for="title" value="Mon May 02 2022 04:27:58 GMT+0100 (British Summer Time)"/>
+          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/public/testgraph/markdown/dcb6b8c0-c9c7-11ec-93ab-37f979c3cc59.md"/>
+          <attvalue for="nodetype" value="UNCURATED_NOTE"/>
+        </attvalues>
+        <viz:size value="10"/>
+        <viz:position x="-4.788453229292853" y="-9.452673956619048"/>
+      </node>
+      <node id="69a388d0-c9c8-11ec-919d-1157bd8e48e7" label="Mon May 02 2022 04:31:54 GMT+0100 (British Summer Time)">
+        <attvalues>
+          <attvalue for="mdfile" value="./data/public/testgraph/markdown/69a388d0-c9c8-11ec-919d-1157bd8e48e7.md"/>
+          <attvalue for="title" value="Mon May 02 2022 04:31:54 GMT+0100 (British Summer Time)"/>
+          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/public/testgraph/markdown/69a388d0-c9c8-11ec-919d-1157bd8e48e7.md"/>
+          <attvalue for="nodetype" value="UNCURATED_NOTE"/>
+        </attvalues>
+        <viz:size value="10"/>
+        <viz:position x="-0.9224434475137944" y="2.0577252682204836"/>
+      </node>
+      <node id="9f270720-c9c8-11ec-8e07-d9076ec40558" label="Mon May 02 2022 04:33:24 GMT+0100 (British Summer Time)">
+        <attvalues>
+          <attvalue for="mdfile" value="./data/public/testgraph/markdown/9f270720-c9c8-11ec-8e07-d9076ec40558.md"/>
+          <attvalue for="title" value="Mon May 02 2022 04:33:24 GMT+0100 (British Summer Time)"/>
+          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/public/testgraph/markdown/9f270720-c9c8-11ec-8e07-d9076ec40558.md"/>
+          <attvalue for="nodetype" value="UNCURATED_NOTE"/>
+        </attvalues>
+        <viz:size value="10"/>
+        <viz:position x="7.27431590566264" y="-0.5760718695581613"/>
+      </node>
+      <node id="b6cdde30-c9c8-11ec-aab4-e959ba8fc49e" label="Mon May 02 2022 04:34:03 GMT+0100 (British Summer Time)">
+        <attvalues>
+          <attvalue for="mdfile" value="./data/public/testgraph/markdown/b6cdde30-c9c8-11ec-aab4-e959ba8fc49e.md"/>
+          <attvalue for="title" value="Mon May 02 2022 04:34:03 GMT+0100 (British Summer Time)"/>
+          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/public/testgraph/markdown/b6cdde30-c9c8-11ec-aab4-e959ba8fc49e.md"/>
+          <attvalue for="nodetype" value="UNCURATED_NOTE"/>
+        </attvalues>
+        <viz:size value="10"/>
+        <viz:position x="1.15799455677816" y="-4.626880298948564"/>
+      </node>
+      <node id="c797f6b0-c9c8-11ec-bb0c-e50adadcd26f" label="Mon May 02 2022 04:34:32 GMT+0100 (British Summer Time)">
+        <attvalues>
+          <attvalue for="mdfile" value="./data/public/testgraph/markdown/c797f6b0-c9c8-11ec-bb0c-e50adadcd26f.md"/>
+          <attvalue for="title" value="Mon May 02 2022 04:34:32 GMT+0100 (British Summer Time)"/>
+          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/public/testgraph/markdown/c797f6b0-c9c8-11ec-bb0c-e50adadcd26f.md"/>
+          <attvalue for="nodetype" value="UNCURATED_NOTE"/>
+        </attvalues>
+        <viz:size value="10"/>
+        <viz:position x="3.4098422201417833" y="1.9893518623832875"/>
+      </node>
+      <node id="e07f6410-c9c8-11ec-ac5a-e7e11445e00a" label="Mon May 02 2022 04:35:13 GMT+0100 (British Summer Time)">
+        <attvalues>
+          <attvalue for="mdfile" value="./data/public/testgraph/markdown/e07f6410-c9c8-11ec-ac5a-e7e11445e00a.md"/>
+          <attvalue for="title" value="Mon May 02 2022 04:35:13 GMT+0100 (British Summer Time)"/>
+          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/public/testgraph/markdown/e07f6410-c9c8-11ec-ac5a-e7e11445e00a.md"/>
+          <attvalue for="nodetype" value="UNCURATED_NOTE"/>
+        </attvalues>
+        <viz:size value="10"/>
+        <viz:position x="-3.108064792783356" y="0.6007146642263308"/>
+      </node>
+      <node id="06f8c960-c9c9-11ec-8fa5-537fef306ac0" label="Mon May 02 2022 04:36:18 GMT+0100 (British Summer Time)">
+        <attvalues>
+          <attvalue for="mdfile" value="./data/public/testgraph/markdown/06f8c960-c9c9-11ec-8fa5-537fef306ac0.md"/>
+          <attvalue for="title" value="Mon May 02 2022 04:36:18 GMT+0100 (British Summer Time)"/>
+          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/public/testgraph/markdown/06f8c960-c9c9-11ec-8fa5-537fef306ac0.md"/>
+          <attvalue for="nodetype" value="UNCURATED_NOTE"/>
+          <attvalue for="events" value="[[&quot;CREATE&quot;,&quot;2022-05-02T03:36:18.422Z&quot;]]"/>
+        </attvalues>
+        <viz:size value="10"/>
+        <viz:position x="6.127624478933093" y="-6.9983278952878525"/>
+      </node>
+      <node id="77e83980-c9c9-11ec-a797-21cf95933d2f" label="Mon May 02 2022 04:39:27 GMT+0100 (British Summer Time)">
+        <attvalues>
+          <attvalue for="mdfile" value="./data/public/testgraph/markdown/77e83980-c9c9-11ec-a797-21cf95933d2f.md"/>
+          <attvalue for="title" value="Mon May 02 2022 04:39:27 GMT+0100 (British Summer Time)"/>
+          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/public/testgraph/markdown/77e83980-c9c9-11ec-a797-21cf95933d2f.md"/>
+          <attvalue for="nodetype" value="UNCURATED_NOTE"/>
+          <attvalue for="events" value="[[&quot;CREATE&quot;,&quot;2022-05-02T03:39:27.896Z&quot;],[&quot;CREATE&quot;,&quot;2022-05-02T03:39:27.896Z&quot;],[&quot;EDIT&quot;,&quot;2022-05-02T04:10:59.032Z&quot;]]"/>
+        </attvalues>
+        <viz:size value="10"/>
+        <viz:position x="-6.977188503144736" y="4.092160077805772"/>
+      </node>
+      <node id="7fda1f50-c9ce-11ec-a516-2f07dc84c67d" label="test">
+        <attvalues>
+          <attvalue for="mdfile" value="./data/public/testgraph/markdown/7fda1f50-c9ce-11ec-a516-2f07dc84c67d.md"/>
+          <attvalue for="title" value="test"/>
+          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/public/testgraph/markdown/7fda1f50-c9ce-11ec-a516-2f07dc84c67d.md"/>
           <attvalue for="nodetype" value="CURATED_NOTE"/>
+          <attvalue for="events" value="[[&quot;CREATE&quot;,&quot;2022-05-02T04:15:28.709Z&quot;],[&quot;CREATE&quot;,&quot;2022-05-02T04:15:28.709Z&quot;],[&quot;EDIT&quot;,&quot;2022-05-02T04:19:40.026Z&quot;]]"/>
         </attvalues>
         <viz:size value="10"/>
-        <viz:position x="1.7757353683710164" y="8.229098048090009"/>
-      </node>
-      <node id="7b5f78f0-c305-11ec-8c2e-bdfcc36588c3" label="as2d">
-        <attvalues>
-          <attvalue for="mdfile" value="./data/public/testgraph/markdown/7b5f78f0-c305-11ec-8c2e-bdfcc36588c3.md"/>
-          <attvalue for="title" value="as2d"/>
-          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/public/testgraph/markdown/7b5f78f0-c305-11ec-8c2e-bdfcc36588c3.md"/>
-          <attvalue for="nodetype" value="CURATED_NOTE"/>
-        </attvalues>
-        <viz:size value="10"/>
-        <viz:position x="0.6390547487313114" y="-7.521575604740622"/>
-      </node>
-      <node id="99f476e0-c309-11ec-9d07-094c64ef11fb" label="Sat Apr 23 2022 14:30:54 GMT+0100 (British Summer Time)">
-        <attvalues>
-          <attvalue for="mdfile" value="./data/public/testgraph/markdown/99f476e0-c309-11ec-9d07-094c64ef11fb.md"/>
-          <attvalue for="title" value="Sat Apr 23 2022 14:30:54 GMT+0100 (British Summer Time)"/>
-          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/public/testgraph/markdown/99f476e0-c309-11ec-9d07-094c64ef11fb.md"/>
-          <attvalue for="nodetype" value="UNCURATED_NOTE"/>
-        </attvalues>
-        <viz:size value="10"/>
-        <viz:position x="4.548534996680601" y="3.2794501334042714"/>
-      </node>
-      <node id="b28f5570-c30a-11ec-bd63-47fb876b9f35" label="Sat Apr 23 2022 14:38:45 GMT+0100 (British Summer Time)">
-        <attvalues>
-          <attvalue for="mdfile" value="./data/public/testgraph/markdown/b28f5570-c30a-11ec-bd63-47fb876b9f35.md"/>
-          <attvalue for="title" value="Sat Apr 23 2022 14:38:45 GMT+0100 (British Summer Time)"/>
-          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/public/testgraph/markdown/b28f5570-c30a-11ec-bd63-47fb876b9f35.md"/>
-          <attvalue for="nodetype" value="UNCURATED_NOTE"/>
-        </attvalues>
-        <viz:size value="10"/>
-        <viz:position x="2.8597894152240286" y="-2.106763969836085"/>
-      </node>
-      <node id="bf13adf0-c30a-11ec-bd63-47fb876b9f35" label="Sat Apr 23 2022 14:39:06 GMT+0100 (British Summer Time)">
-        <attvalues>
-          <attvalue for="mdfile" value="./data/public/testgraph/markdown/bf13adf0-c30a-11ec-bd63-47fb876b9f35.md"/>
-          <attvalue for="title" value="Sat Apr 23 2022 14:39:06 GMT+0100 (British Summer Time)"/>
-          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/public/testgraph/markdown/bf13adf0-c30a-11ec-bd63-47fb876b9f35.md"/>
-          <attvalue for="nodetype" value="UNCURATED_NOTE"/>
-        </attvalues>
-        <viz:size value="10"/>
-        <viz:position x="1.459344208701765" y="-6.647887553072476"/>
-      </node>
-      <node id="110612b0-c30b-11ec-bd63-47fb876b9f35" label="Sat Apr 23 2022 14:41:23 GMT+0100 (British Summer Time)">
-        <attvalues>
-          <attvalue for="mdfile" value="./data/public/testgraph/markdown/110612b0-c30b-11ec-bd63-47fb876b9f35.md"/>
-          <attvalue for="title" value="Sat Apr 23 2022 14:41:23 GMT+0100 (British Summer Time)"/>
-          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/public/testgraph/markdown/110612b0-c30b-11ec-bd63-47fb876b9f35.md"/>
-          <attvalue for="nodetype" value="UNCURATED_NOTE"/>
-        </attvalues>
-        <viz:size value="10"/>
-        <viz:position x="-2.874751356954599" y="3.7932628516061584"/>
+        <viz:position x="3.12874145829106" y="-2.5679790221531773"/>
       </node>
     </nodes>
     <edges>
-      <edge id="geid_30_0" source="514ee320-c305-11ec-8f87-99515219517a" target="7b5f78f0-c305-11ec-8c2e-bdfcc36588c3"/>
-      <edge id="geid_211_0" source="514ee320-c305-11ec-8f87-99515219517a" target="110612b0-c30b-11ec-bd63-47fb876b9f35"/>
+      <edge id="geid_127_0" source="7fda1f50-c9ce-11ec-a516-2f07dc84c67d" target="77e83980-c9c9-11ec-a797-21cf95933d2f"/>
     </edges>
   </graph>
 </gexf>
