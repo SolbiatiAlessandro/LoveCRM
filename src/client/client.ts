@@ -38,7 +38,7 @@ function onNodeClick({ node }){
 			.filter(event => typeof(event) != "undefined")
 			.sort()
 			.forEach(event => {console.log(event)})
-		console.log(`> EVENTS FOR ${ attr['title'] }`);
+		console.log(`> EVENTS FOR ${attr['nodetype']}/${ attr['title'] }`);
 	});
 }
 
@@ -63,6 +63,10 @@ function renderGraph(graph){
 			const res: Partial<NodeDisplayData> = { ...data };
 			if (data.nodetype == "UNCURATED_NOTE"){
 				res.hidden = true;
+			}
+
+			if(data.nodetype ==  "PERSON"){
+				res.color = "pink";
 			}
 			return res;
 		});
