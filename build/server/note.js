@@ -23,7 +23,6 @@ var Note = /** @class */ (function (_super) {
     function Note() {
         var _this = _super.call(this) || this;
         _this.PATH = GraphBuilder.CURRENT_GRAPH + constants.DATA.NOTE_PATH;
-        _this.nodeType = constants.NODE_TYPES.NOTE;
         _this.uuid = uuid.v1();
         _this.mdfile = _this.PATH + _this.uuid + ".md";
         return _this;
@@ -38,6 +37,7 @@ var Note = /** @class */ (function (_super) {
             title: this.title,
             // TODO: figure out how to call pwd from javascript
             fullpath: "/Users/lessandro/Hacking/LOVECRM/v1_typescript" + this.mdfile.substring(1),
+            nodetype: this.nodeType,
         }, this.additionalSaveValues());
     };
     return Note;
@@ -48,13 +48,9 @@ var CuratedNote = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.parentUUID = parentUUID;
         _this.title = title;
+        _this.nodeType = constants.NODE_TYPES.CURATED_NOTE;
         return _this;
     }
-    CuratedNote.prototype.additionalSaveValues = function () {
-        return {
-            nodetype: "CURATED_NOTE"
-        };
-    };
     return CuratedNote;
 }(Note));
 export { CuratedNote };
@@ -62,14 +58,10 @@ var UncuratedNote = /** @class */ (function (_super) {
     __extends(UncuratedNote, _super);
     function UncuratedNote() {
         var _this = _super.call(this) || this;
+        _this.nodeType = constants.NODE_TYPES.UNCURATED_NOTE;
         _this.title = Date();
         return _this;
     }
-    UncuratedNote.prototype.additionalSaveValues = function () {
-        return {
-            nodetype: "UNCURATED_NOTE"
-        };
-    };
     return UncuratedNote;
 }(Note));
 export { UncuratedNote };

@@ -11,5 +11,6 @@ export abstract class ENDPOINTS {
 }
 
 export abstract class NODE_TYPES {
-	public static readonly NOTE: string = "_note";
+	public static readonly CURATED_NOTE: string = "CURATED_NOTE";
+	public static readonly UNCURATED_NOTE: string = "UNCURATED_NOTE";
 }

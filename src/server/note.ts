@@ -8,7 +8,6 @@ abstract class Note extends GraphNode {
 	public readonly PATH: string = GraphBuilder.CURRENT_GRAPH + constants.DATA.NOTE_PATH;
 	public mdfile: string;
 	public uuid: string;
-	public nodeType: string = constants.NODE_TYPES.NOTE;
 
 	// overwrite this if you want to store additional values in memory
 	additionalSaveValues() {
@@ -22,6 +21,7 @@ abstract class Note extends GraphNode {
 				title: this.title,
 				// TODO: figure out how to call pwd from javascript
 				fullpath: "/Users/lessandro/Hacking/LOVECRM/v1_typescript" + this.mdfile.substring(1),
+				nodetype: this.nodeType,
 			}, this.additionalSaveValues());
 	}
 
@@ -34,32 +34,21 @@ abstract class Note extends GraphNode {
 
 
 export class CuratedNote extends Note {
+	public nodeType: string = constants.NODE_TYPES.CURATED_NOTE;
 	constructor(
 		public parentUUID: string,
 		public title: string
 	){
 		super();
 	}
-
-	additionalSaveValues(){
-		return {
-			nodetype: "CURATED_NOTE"
-		}
-	}
 }
 
 export class UncuratedNote extends Note {
+	public nodeType: string = constants.NODE_TYPES.UNCURATED_NOTE;
 	constructor(){
 		super();
 		this.title = Date();
 	}
-
-	additionalSaveValues(){
-		return {
-			nodetype: "UNCURATED_NOTE"
-		}
-	}
-
 }
 
 export abstract class NoteBuilder {

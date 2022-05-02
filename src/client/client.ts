@@ -17,7 +17,7 @@ jQuery.ajax( {
 		renderer.on("clickNode", ({ node }) => {
 			const attr = graph.getNodeAttributes(node);
 			const fullpath = attr['fullpath']; 
-			console.log( "fullpath copied to clipboard", fullpath );
+			console.log( attr );
 			navigator.clipboard.writeText(fullpath);
 		});
 

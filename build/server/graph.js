@@ -21,8 +21,6 @@ var GraphNode = /** @class */ (function () {
     function GraphNode() {
         this.title = "Untitled";
     }
-    // TODO: with internet figure out how to automatically place 
-    // nodes in hierarchical way
     GraphNode.prototype.visualisationValues = function () {
         return {
             x: Math.random() * 20 - 10,

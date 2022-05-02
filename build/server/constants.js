@@ -19,7 +19,8 @@ export { ENDPOINTS };
 var NODE_TYPES = /** @class */ (function () {
     function NODE_TYPES() {
     }
-    NODE_TYPES.NOTE = "_note";
+    NODE_TYPES.CURATED_NOTE = "CURATED_NOTE";
+    NODE_TYPES.UNCURATED_NOTE = "UNCURATED_NOTE";
     return NODE_TYPES;
 }());
 export { NODE_TYPES };

@@ -13,18 +13,20 @@ import Sigma from "sigma";
 import * as jQuery from "jquery";
 import * as gexf from 'graphology-gexf';
 import GraphologyGraph from 'graphology';
+import { circular } from 'graphology-layout';
 jQuery.ajax({
     'url': 'http://localhost:8080/load-graph',
     'success': function (res) {
         var graphData = res;
         var graph = gexf.parse(GraphologyGraph, graphData);
+        circular.assign(graph);
         var container = document.getElementById("sigma-container");
         var renderer = new Sigma(graph, container);
         renderer.on("clickNode", function (_a) {
             var node = _a.node;
             var attr = graph.getNodeAttributes(node);
             var fullpath = attr['fullpath'];
-            console.log("fullpath copied to clipboard", fullpath);
+            console.log(attr);
             navigator.clipboard.writeText(fullpath);
         });
         renderer.setSetting("nodeReducer", function (node, data) {
