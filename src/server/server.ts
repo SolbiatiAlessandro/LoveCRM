@@ -41,6 +41,14 @@ app.get(constants.ENDPOINTS.CREATE_CURATED_NOTE, ( req, res ) => {
 	res.send(note);
 });
 
+// personName: string 
+app.get(constants.ENDPOINTS.CREATE_PERSON, ( req, res ) => {
+	console.log(constants.ENDPOINTS.CREATE_PERSON, req.query);
+	const note = NoteBuilder.createPerson(graph, req.query.personName);
+	console.log("200 OK", note);
+	res.send(note);
+});
+
 // uncuratedNoteUUID: uuid
 // curatedNoteUUID: uuid
 app.get(constants.ENDPOINTS.REFERENCE_CURATED_NOTE, ( req, res ) => {

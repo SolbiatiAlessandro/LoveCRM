@@ -9,6 +9,7 @@ export abstract class ENDPOINTS {
 	public static readonly CREATE_CURATED_NOTE: string = "/create-curated-note"
 	public static readonly REFERENCE_CURATED_NOTE: string = "/reference-curated-note"
 	public static readonly EDIT_NOTE: string = "/edit-note"
+	public static readonly CREATE_PERSON: string = "/create-person"
 }
 
 // TODO: make enum

@@ -69,7 +69,7 @@ export abstract class GraphBuilder {
 	// TODO: figure out how to do os commands from node
 	// and get list of graph as `ls data/[*/*:graphs]`
 	public static GRAPHS = ['./data/private/lovegraph/', './data/public/testgraph/']
-	public static CURRENT_GRAPH = GraphBuilder.GRAPHS[0];
+	public static CURRENT_GRAPH = GraphBuilder.GRAPHS[1];
 	public static GRAPH_NAME: string = "graph.gexf";
 	public static PATH: string = GraphBuilder.CURRENT_GRAPH + GraphBuilder.GRAPH_NAME;
 
