@@ -3,12 +3,14 @@ import { NodeDisplayData } from "sigma/types";
 import * as jQuery from "jquery";
 import * as gexf from 'graphology-gexf';
 import GraphologyGraph from 'graphology';
+import {circular} from 'graphology-layout';
 
 jQuery.ajax( {
 	'url': 'http://localhost:8080/load-graph',
 	'success':function(res){
 		const graphData = res;
 		const graph = gexf.parse(GraphologyGraph, graphData);
+		circular.assign(graph);
 		const container = document.getElementById("sigma-container") as HTMLElement;
 
 		const renderer = new Sigma(graph, container);

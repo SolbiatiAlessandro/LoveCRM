@@ -1,24 +1,26 @@
 {
 	"type": "module",
-  "dependencies": {
-    "common": "^0.2.5",
-    "cors": "^2.8.5",
-    "express": "^4.17.3",
-    "graphology": "^0.23.2",
-    "graphology-gexf": "^0.10.1",
-    "jquery": "^3.6.0",
-    "kotatsu": "^0.22.3",
-    "sigma": "^2.2.0",
-    "typescript": "^4.5.5",
-    "uuid": "^8.3.2"
-  },
-  "browser": {
-    "fs": false,
-    "path": false,
-    "os": false
-  },
-  "scripts": {
-    "server": "npx tsc && node ./build/server/server.js",
-    "client": "node ./node_modules/kotatsu/cli.js serve --typescript src/client/client.ts --public / ./public"
-  }
+	"dependencies": {
+		"common": "^0.2.5",
+		"cors": "^2.8.5",
+		"express": "^4.17.3",
+		"graphology": "^0.23.2",
+		"graphology-gexf": "^0.10.1",
+		"graphology-layout": "^0.6.0",
+		"graphology-layout-force": "^0.2.4",
+		"jquery": "^3.6.0",
+		"kotatsu": "^0.22.3",
+		"sigma": "^2.2.0",
+		"typescript": "^4.5.5",
+		"uuid": "^8.3.2"
+	},
+	"browser": {
+		"fs": false,
+		"path": false,
+		"os": false
+	},
+	"scripts": {
+		"server": "npx tsc && node ./build/server/server.js",
+		"client": "node ./node_modules/kotatsu/cli.js serve --typescript src/client/client.ts --public / ./public"
+	}
 }
