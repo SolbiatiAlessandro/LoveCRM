@@ -17,14 +17,14 @@ abstract class Note extends GraphNode {
 	}
 
 	saveValues(){
-		return utils.mergeDictionaries(
+		return  utils.mergeDictionaries(
 			{
 				mdfile: this.mdfile,
 				title: this.title,
 				// TODO: figure out how to call pwd from javascript
 				fullpath: "/Users/lessandro/Hacking/LOVECRM/v1_typescript" + this.mdfile.substring(1),
 				nodetype: this.nodeType,
-				events: this.events.forEach(event => event.saveValues())
+				events: JSON.stringify(this.events.map(event => event.saveValues()))
 			}, this.additionalSaveValues());
 	}
 
@@ -32,6 +32,7 @@ abstract class Note extends GraphNode {
 		super();
 		this.uuid = uuid.v1();
 		this.mdfile = this.PATH + this.uuid + ".md";
+		this.events.push(new Event(constants.EVENT_TYPE.CREATE));
 		this.events.push(new Event(constants.EVENT_TYPE.CREATE));
 	}
 }
