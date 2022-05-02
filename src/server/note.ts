@@ -40,7 +40,6 @@ abstract class Note extends GraphNode {
 		this.uuid = uuid.v1();
 		this.mdfile = this.PATH + this.uuid + ".md";
 		this.events.push(new Event(constants.EVENT_TYPE.CREATE));
-		this.events.push(new Event(constants.EVENT_TYPE.CREATE));
 	}
 }
 
@@ -59,7 +58,7 @@ export class UncuratedNote extends Note {
 	public nodeType: string = constants.NODE_TYPES.UNCURATED_NOTE;
 	constructor(){
 		super();
-		this.title = Date();
+		this.title = this.uuid;
 	}
 }
 
