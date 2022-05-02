@@ -14,7 +14,7 @@ function eventsForNode(graph, node): Array<String>{
 			// see server/event.ts
 			const date = new Date(event[1]);
 			// TODO NIT 08:04 prints 8:4
-			return `${ date.getHours() }:${ date.getMinutes()} ${event[0]} - ${attr['nodetype']}/${attr['title']} - ${date}`; 
+			return `${ date.toLocaleString().split(' ')[1] } ${event[0]} - ${attr['nodetype']}/${attr['title']} - ${date}`; 
 		});
 }
 
