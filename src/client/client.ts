@@ -21,7 +21,7 @@ jQuery.ajax( {
 
 		renderer.setSetting("nodeReducer", (node, data) => {
 			const res: Partial<NodeDisplayData> = { ...data };
-			if (data.title.includes("GMT")){
+			if (data.nodetype == "UNCURATED_NOTE"){
 				res.hidden = true;
 			}
 			return res;

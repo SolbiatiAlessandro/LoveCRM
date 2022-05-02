@@ -40,12 +40,24 @@ export class CuratedNote extends Note {
 	){
 		super();
 	}
+
+	additionalSaveValues(){
+		return {
+			nodetype: "CURATED_NOTE"
+		}
+	}
 }
 
 export class UncuratedNote extends Note {
 	constructor(){
 		super();
 		this.title = Date();
+	}
+
+	additionalSaveValues(){
+		return {
+			nodetype: "UNCURATED_NOTE"
+		}
 	}
 
 }

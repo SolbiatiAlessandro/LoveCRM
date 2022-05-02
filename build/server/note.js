@@ -50,6 +50,11 @@ var CuratedNote = /** @class */ (function (_super) {
         _this.title = title;
         return _this;
     }
+    CuratedNote.prototype.additionalSaveValues = function () {
+        return {
+            nodetype: "CURATED_NOTE"
+        };
+    };
     return CuratedNote;
 }(Note));
 export { CuratedNote };
@@ -60,6 +65,11 @@ var UncuratedNote = /** @class */ (function (_super) {
         _this.title = Date();
         return _this;
     }
+    UncuratedNote.prototype.additionalSaveValues = function () {
+        return {
+            nodetype: "UNCURATED_NOTE"
+        };
+    };
     return UncuratedNote;
 }(Note));
 export { UncuratedNote };
@@ -68,7 +78,7 @@ var NoteBuilder = /** @class */ (function () {
     }
     NoteBuilder.createUncuratedNote = function (graph) {
         var note = new UncuratedNote();
-        fs.writeFileSync(note.mdfile, "\n".repeat(100) + note.uuid);
+        fs.writeFileSync(note.mdfile, NoteBuilder.NOTE_FOOTER + note.uuid);
         graph.add(note);
         GraphBuilder.save(graph);
         return note.mdfile;
@@ -81,7 +91,7 @@ var NoteBuilder = /** @class */ (function () {
     NoteBuilder.createCuratedNote = function (graph, title, parentNoteUUID) {
         title = title ? title : "Untitled";
         var note = new CuratedNote(parentNoteUUID, title);
-        fs.writeFileSync(note.mdfile, "# " + title);
+        fs.writeFileSync(note.mdfile, "# " + title + NoteBuilder.NOTE_FOOTER + note.uuid);
         graph.add(note);
         if (parentNoteUUID) {
             graph.addEdge(note.parentUUID, note.uuid);
@@ -89,6 +99,7 @@ var NoteBuilder = /** @class */ (function () {
         GraphBuilder.save(graph);
         return note.mdfile;
     };
+    NoteBuilder.NOTE_FOOTER = "\n".repeat(100);
     return NoteBuilder;
 }());
 export { NoteBuilder };
