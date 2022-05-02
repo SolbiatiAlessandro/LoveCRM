@@ -1,5 +1,6 @@
 import GraphologyGraph from 'graphology';
 import * as gexf from 'graphology-gexf';
+import * as uuid from 'uuid';
 import * as fs from 'fs';
 import * as constants from "./constants.js";
 import * as utils from "./utils.js";
@@ -8,12 +9,21 @@ import {Event} from "./event.js";
 export abstract class GraphNode {
 	// TODO: with internet figure out how to define new types
 	public abstract nodeType: string; // union type constant.NODE_TYPES
-	public abstract uuid: string;
+	public uuid: string;
 	public title: string = "Untitled";
-	public abstract events: Array<Event> 
+	public events: Array<Event> = [];
 
-	// this is the representation stored in the graphology node attributes
-	abstract saveValues()
+	// overwrite this if you want to store additional values in memory
+	public abstract additionalSaveValues()
+
+	saveValues(){
+		return  utils.mergeDictionaries(
+			{
+				title: this.title,
+				nodetype: this.nodeType,
+				events: JSON.stringify(this.events.map(event => event.saveValues()))
+			}, this.additionalSaveValues());
+	}
 
 	visualisationValues(){
 		return { 
@@ -22,6 +32,18 @@ export abstract class GraphNode {
 		 size: 10,
 		 label: this.title
 		}
+	}
+
+	static addEvent(events: string, eventType: string) {
+		const _events = JSON.parse(events);
+		const editEvent = new Event(eventType);
+		_events.push(editEvent.saveValues());
+		return JSON.stringify(_events);
+	}
+
+	constructor(){
+		this.uuid = uuid.v1();
+		this.events.push(new Event(constants.EVENT_TYPE.CREATE));
 	}
 }
 
@@ -47,7 +69,7 @@ export abstract class GraphBuilder {
 	// TODO: figure out how to do os commands from node
 	// and get list of graph as `ls data/[*/*:graphs]`
 	public static GRAPHS = ['./data/private/lovegraph/', './data/public/testgraph/']
-	public static CURRENT_GRAPH = GraphBuilder.GRAPHS[1];
+	public static CURRENT_GRAPH = GraphBuilder.GRAPHS[0];
 	public static GRAPH_NAME: string = "graph.gexf";
 	public static PATH: string = GraphBuilder.CURRENT_GRAPH + GraphBuilder.GRAPH_NAME;
 

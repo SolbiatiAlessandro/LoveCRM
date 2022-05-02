@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-import * as uuid from 'uuid';
 import * as constants from "./constants.js";
 import * as utils from "./utils.js";
 import { Graph, GraphNode, GraphBuilder } from "./graph.js";
@@ -8,38 +7,18 @@ import { Event } from "./event.js";
 abstract class Note extends GraphNode {
 	public readonly PATH: string = GraphBuilder.CURRENT_GRAPH + constants.DATA.NOTE_PATH;
 	public mdfile: string;
-	public uuid: string;
-	public events: Array<Event> = [];
 
-	// overwrite this if you want to store additional values in memory
 	additionalSaveValues() {
-		return {}
-	}
-
-	saveValues(){
-		return  utils.mergeDictionaries(
-			{
+		return {
 				mdfile: this.mdfile,
-				title: this.title,
 				// TODO: figure out how to call pwd from javascript
 				fullpath: "/Users/lessandro/Hacking/LOVECRM/v1_typescript" + this.mdfile.substring(1),
-				nodetype: this.nodeType,
-				events: JSON.stringify(this.events.map(event => event.saveValues()))
-			}, this.additionalSaveValues());
-	}
-
-	static addEvent(events: string, eventType: string) {
-		const _events = JSON.parse(events);
-		const editEvent = new Event(eventType);
-		_events.push(editEvent.saveValues());
-		return JSON.stringify(_events);
+		}
 	}
 
 	constructor(){
 		super();
-		this.uuid = uuid.v1();
 		this.mdfile = this.PATH + this.uuid + ".md";
-		this.events.push(new Event(constants.EVENT_TYPE.CREATE));
 	}
 }
 
@@ -74,7 +53,9 @@ export abstract class NoteBuilder {
 
 	static referenceCuratedNote(graph: Graph, uncuratedNoteUUID: string, curatedNoteUUID: string){
 		graph.addEdge(curatedNoteUUID, uncuratedNoteUUID);
-		// TODO: overwrite addEdge and save graph
+		// TODO: how to overwrite in typescript? overwrite addEdge and 
+		// save graph directly inside there instead of needing to calling 
+		// it outside
 		GraphBuilder.save(graph);
 	}
 
