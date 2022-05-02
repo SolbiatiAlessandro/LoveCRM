@@ -5,14 +5,16 @@ import * as gexf from 'graphology-gexf';
 import GraphologyGraph from 'graphology';
 import {circular} from 'graphology-layout';
 
-function printEvents(graph, node){
+// in the client events are just formatted strings
+function eventsForNode(graph, node): Array<String>{
 		const attr = graph.getNodeAttributes(node);
-		console.log(attr['nodetype'], attr['title']);
+		//console.log(attr['nodetype'], attr['title']);
 		const events = JSON.parse(attr['events']);
-		events.forEach(event => {
+		return events.map(event => {
 			// see server/event.ts
 			const date = new Date(event[1]);
-			console.log(`${ date.getHours() }:${ date.getMinutes() }  ${event[0]} - (${date})`); 
+			// TODO NIT 08:04 prints 8:4
+			return `${ date.getHours() }:${ date.getMinutes()} ${event[0]} - ${attr['nodetype']}/${attr['title']} - ${date}`; 
 		});
 }
 
@@ -24,14 +26,19 @@ function onNodeClick({ node }){
 		navigator.clipboard.writeText(fullpath);
 
 		// 2) Events
+		const events = eventsForNode(graph, node).concat(
+			graph.neighbors(node).map(node => {
+				const attr = graph.getNodeAttributes(node);
+				if (attr['nodetype'] == "UNCURATED_NOTE"){
+					return eventsForNode(graph, node)
+				}
+		}));
+		events
+			.flat()
+			.filter(event => typeof(event) != "undefined")
+			.sort()
+			.forEach(event => {console.log(event)})
 		console.log(`> EVENTS FOR ${ attr['title'] }`);
-		printEvents(graph, node)
-		graph.neighbors(node).forEach(node => {
-			const attr = graph.getNodeAttributes(node);
-			if (attr['nodetype'] == "UNCURATED_NOTE"){
-				printEvents(graph, node)
-			}
-		});
 	});
 }
 
