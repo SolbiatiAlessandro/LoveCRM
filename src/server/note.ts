@@ -3,11 +3,13 @@ import * as uuid from 'uuid';
 import * as constants from "./constants.js";
 import * as utils from "./utils.js";
 import { Graph, GraphNode, GraphBuilder } from "./graph.js";
+import { Event } from "./event.js";
 
 abstract class Note extends GraphNode {
 	public readonly PATH: string = GraphBuilder.CURRENT_GRAPH + constants.DATA.NOTE_PATH;
 	public mdfile: string;
 	public uuid: string;
+	public events: Array<Event> = [];
 
 	// overwrite this if you want to store additional values in memory
 	additionalSaveValues() {
@@ -22,6 +24,7 @@ abstract class Note extends GraphNode {
 				// TODO: figure out how to call pwd from javascript
 				fullpath: "/Users/lessandro/Hacking/LOVECRM/v1_typescript" + this.mdfile.substring(1),
 				nodetype: this.nodeType,
+				events: this.events.forEach(event => event.saveValues())
 			}, this.additionalSaveValues());
 	}
 
@@ -29,6 +32,7 @@ abstract class Note extends GraphNode {
 		super();
 		this.uuid = uuid.v1();
 		this.mdfile = this.PATH + this.uuid + ".md";
+		this.events.push(new Event(constants.EVENT_TYPE.CREATE));
 	}
 }
 
