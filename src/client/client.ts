@@ -16,24 +16,23 @@ function printEvents(graph, node){
 		});
 }
 
-jQuery.ajax( {
-	'url': 'http://localhost:8080/load-graph',
-	'success':function(res){
-		const graphData = res;
+function onClick(graph, node){
+		const attr = graph.getNodeAttributes(node);
+		const fullpath = attr['fullpath']; 
+		navigator.clipboard.writeText(fullpath);
+
+		printEvents(graph, node)
+
+		graph.neighbors(node).forEach(node => printEvents(graph, node));
+}
+
+function loadGraph(graphData){
 		const graph = gexf.parse(GraphologyGraph, graphData);
 		circular.assign(graph);
 		const container = document.getElementById("sigma-container") as HTMLElement;
 
 		const renderer = new Sigma(graph, container);
-		renderer.on("clickNode", ({ node }) => {
-			const attr = graph.getNodeAttributes(node);
-			const fullpath = attr['fullpath']; 
-			navigator.clipboard.writeText(fullpath);
-
-			printEvents(graph, node)
-
-			graph.neighbors(node).forEach(node => printEvents(graph, node));
-		});
+		renderer.on("clickNode", ({ node }) => {onClick(graph, node)});
 
 		renderer.setSetting("nodeReducer", (node, data) => {
 			const res: Partial<NodeDisplayData> = { ...data };
@@ -42,9 +41,10 @@ jQuery.ajax( {
 			}
 			return res;
 		});
-		console.log(graph.order);
-		console.log(graph.size);
-		console.log("\n".repeat(50));
+		return graph;
+}
 
-	}
+jQuery.ajax( {
+	'url': 'http://localhost:8080/load-graph',
+	'success':loadGraph
 });
