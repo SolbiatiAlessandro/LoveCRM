@@ -85,16 +85,20 @@ export abstract class GraphBuilder {
 		return fs.readFileSync(path, {'encoding':'utf8'});
 	}
 
-	static loadGraphs(): Array<Graph>{
-		// @ts-ignore
-		return GraphBuilder.GRAPHS.map((graph_path) => {
+	// return {graph_name, Graph}
+	static loadGraphs(): Record<string, Graph>{
+		var graphs = {};
+		GraphBuilder.GRAPHS.forEach((graph_path) => {
+			var graph;
 			try{
 				// @ts-ignore
-				return gexf.parse(Graph, GraphBuilder.loadGraphData(GraphBuilder._buildGraphPath(graph_path)));
+				graph = gexf.parse(Graph, GraphBuilder.loadGraphData(GraphBuilder._buildGraphPath(graph_path)));
 			}	catch {
-				return new Graph();
+				graph =  new Graph();
 			}
+			graphs[graph_path] = graph;
 		});
+		return graphs;
 	}
 
 	static loadGraph(): Graph{
