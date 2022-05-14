@@ -3,6 +3,7 @@ import {NoteBuilder} from './note.js';
 import * as constants from './constants.js';
 
 const graph: Graph = GraphBuilder.loadGraph();
+const graphs: Array<Graph> = GraphBuilder.loadGraphs();
 
 import express from "express";
 import cors from "cors";

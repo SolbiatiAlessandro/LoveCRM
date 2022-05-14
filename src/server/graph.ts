@@ -66,15 +66,35 @@ export class Graph extends GraphologyGraph {
 }
 
 export abstract class GraphBuilder {
-	// TODO: figure out how to do os commands from node
-	// and get list of graph as `ls data/[*/*:graphs]`
-	public static GRAPHS = ['./data/private/lovegraph/', './data/public/testgraph/']
-	public static CURRENT_GRAPH = GraphBuilder.GRAPHS[1];
-	public static GRAPH_NAME: string = "graph.gexf";
-	public static PATH: string = GraphBuilder.CURRENT_GRAPH + GraphBuilder.GRAPH_NAME;
+	
+	// you could get GRAPHS with exec but it's overkill
+		// const execSync = require('child_process').execSync;
+		// code = execSync('ls data/*<fancy regex>');
+		// new Buffer.from(code).toString('ascii')
+	public static GRAPHS = ['./data/private/lovegraph/', './data/public/testgraph/', './data/private/fbgraph/']
 
-	static loadGraphData(){
-		return fs.readFileSync(GraphBuilder.PATH, {'encoding':'utf8'});
+	public static CURRENT_GRAPH = GraphBuilder.GRAPHS[2];
+	public static GRAPH_FILE: string = "graph.gexf";
+	public static PATH: string = GraphBuilder._buildGraphPath(GraphBuilder.CURRENT_GRAPH)
+	
+	static _buildGraphPath(graph_path: string): string {
+		return graph_path + GraphBuilder.GRAPH_FILE
+	}
+
+	static loadGraphData(path: string = GraphBuilder.PATH){
+		return fs.readFileSync(path, {'encoding':'utf8'});
+	}
+
+	static loadGraphs(): Array<Graph>{
+		// @ts-ignore
+		return GraphBuilder.GRAPHS.map((graph_path) => {
+			try{
+				// @ts-ignore
+				return gexf.parse(Graph, GraphBuilder.loadGraphData(GraphBuilder._buildGraphPath(graph_path)));
+			}	catch {
+				return new Graph();
+			}
+		});
 	}
 
 	static loadGraph(): Graph{
