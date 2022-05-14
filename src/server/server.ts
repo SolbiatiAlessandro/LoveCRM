@@ -2,31 +2,50 @@ import {Graph, GraphBuilder} from './graph.js';
 import {NoteBuilder} from './note.js';
 import * as constants from './constants.js';
 
-const graph: Graph = GraphBuilder.loadGraph();
+//const graph: Graph = GraphBuilder.loadGraph();
 const graphs: Record<string, Graph> = GraphBuilder.loadGraphs();
-console.log(graphs)
+
+// server setup
+var port = 8080;
+const ports: Record<string, string> = {}
+Object.keys(graphs).forEach((graph_name) => {
+	ports[port] = graph_name;
+	port += 1;
+})
+console.log("serving following graphs:");
+console.log(ports);
+
+function getGraphFromRequest( req ): Graph {
+	const port = req.socket.localPort;
+	const graph_name = ports[port];
+	return graphs[graph_name];
+}
+
 
 import express from "express";
 import cors from "cors";
 const app = express();
 app.use(cors());
-const port = 8080; // default port to listen
 
 app.get( "/", ( req, res ) => {
-    res.send(`graph order is ${ graph.order }`);
+	const graph = getGraphFromRequest( req );
+	res.send(`graph order is ${ graph.order }`);
 } );
 
 app.get( "/test", ( req, res ) => {
-	  graph.addExampleNode();
-    res.sendStatus(200);
+	const graph = getGraphFromRequest( req );
+	graph.addExampleNode();
+	res.sendStatus(200);
 } );
 
 // load graph string from browser for GraphBuilder.loadGraph
 app.get("/load-graph", ( req, res ) => {
+	const graph = getGraphFromRequest( req );
 	res.send(GraphBuilder.loadGraphData());
 });
 
 app.get(constants.ENDPOINTS.CREATE_UNCURATED_NOTE, ( req, res ) => {
+	const graph = getGraphFromRequest( req );
 	console.log(constants.ENDPOINTS.CREATE_UNCURATED_NOTE, req.query);
 	const note = NoteBuilder.createUncuratedNote(graph);
 	console.log("200 OK", note);
@@ -37,6 +56,7 @@ app.get(constants.ENDPOINTS.CREATE_UNCURATED_NOTE, ( req, res ) => {
 // title: string 
 // parent: string (uuid of parent note)
 app.get(constants.ENDPOINTS.CREATE_CURATED_NOTE, ( req, res ) => {
+	const graph = getGraphFromRequest( req );
 	console.log(constants.ENDPOINTS.CREATE_CURATED_NOTE, req.query);
 	const note = NoteBuilder.createCuratedNote(graph, req.query.title, req.query.parent);
 	console.log("200 OK", note);
@@ -45,6 +65,7 @@ app.get(constants.ENDPOINTS.CREATE_CURATED_NOTE, ( req, res ) => {
 
 // personName: string 
 app.get(constants.ENDPOINTS.CREATE_PERSON, ( req, res ) => {
+	const graph = getGraphFromRequest( req );
 	console.log(constants.ENDPOINTS.CREATE_PERSON, req.query);
 	const note = NoteBuilder.createPerson(graph, req.query.personName);
 	console.log("200 OK", note);
@@ -54,6 +75,7 @@ app.get(constants.ENDPOINTS.CREATE_PERSON, ( req, res ) => {
 // uncuratedNoteUUID: uuid
 // curatedNoteUUID: uuid
 app.get(constants.ENDPOINTS.REFERENCE_CURATED_NOTE, ( req, res ) => {
+	const graph = getGraphFromRequest( req );
 	console.log(constants.ENDPOINTS.REFERENCE_CURATED_NOTE, req.query);
   NoteBuilder.referenceCuratedNote(
 		graph, 
@@ -66,6 +88,7 @@ app.get(constants.ENDPOINTS.REFERENCE_CURATED_NOTE, ( req, res ) => {
 
 // noteUUID: uuid
 app.get(constants.ENDPOINTS.EDIT_NOTE, ( req, res ) => {
+	const graph = getGraphFromRequest( req );
 	console.log(constants.ENDPOINTS.EDIT_NOTE, req.query);
 	NoteBuilder.noteEvent(
 		graph,
@@ -76,5 +99,6 @@ app.get(constants.ENDPOINTS.EDIT_NOTE, ( req, res ) => {
 	res.sendStatus(200);
 });
 
-app.listen( port, () => {
-    console.log( `server started at http://localhost:${ port }` ); } );
+
+Object.entries(ports).forEach(
+	([port, graph], _) => app.listen( port, () => {console.log( `server started at http://localhost:${ port }` ); } ));
