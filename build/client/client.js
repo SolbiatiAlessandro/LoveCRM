@@ -14,31 +14,66 @@ import * as jQuery from "jquery";
 import * as gexf from 'graphology-gexf';
 import GraphologyGraph from 'graphology';
 import { circular } from 'graphology-layout';
-jQuery.ajax({
-    'url': 'http://localhost:8080/load-graph',
-    'success': function (res) {
-        var graphData = res;
-        var graph = gexf.parse(GraphologyGraph, graphData);
-        circular.assign(graph);
-        var container = document.getElementById("sigma-container");
-        var renderer = new Sigma(graph, container);
-        renderer.on("clickNode", function (_a) {
-            var node = _a.node;
+// in the client events are just formatted strings
+function eventsForNode(graph, node) {
+    var attr = graph.getNodeAttributes(node);
+    //console.log(attr['nodetype'], attr['title']);
+    var events = JSON.parse(attr['events']);
+    return events.map(function (event) {
+        // see server/event.ts
+        var date = new Date(event[1]);
+        // TODO NIT 08:04 prints 8:4
+        return "".concat(date.toLocaleString().split(' ')[1], " ").concat(event[0], " - ").concat(attr['nodetype'], "/").concat(attr['title'], " - ").concat(date);
+    });
+}
+function onNodeClick(_a) {
+    var node = _a.node;
+    loadGraph(function (graph) {
+        // 1) URL to clipboard
+        var attr = graph.getNodeAttributes(node);
+        var fullpath = attr['fullpath'];
+        navigator.clipboard.writeText(fullpath);
+        // 2) Events
+        var events = eventsForNode(graph, node).concat(graph.neighbors(node).map(function (node) {
             var attr = graph.getNodeAttributes(node);
-            var fullpath = attr['fullpath'];
-            console.log("EVENTS");
-            attr['events'].forEach(function (event) { return console.log(event); });
-            navigator.clipboard.writeText(fullpath);
-        });
-        renderer.setSetting("nodeReducer", function (node, data) {
-            var res = __assign({}, data);
-            if (data.nodetype == "UNCURATED_NOTE") {
-                res.hidden = true;
+            if (attr['nodetype'] == "UNCURATED_NOTE") {
+                return eventsForNode(graph, node);
             }
-            return res;
-        });
-        console.log(graph.order);
-        console.log(graph.size);
-        console.log("\n".repeat(50));
-    }
-});
+        }));
+        events
+            .flat()
+            .filter(function (event) { return typeof (event) != "undefined"; })
+            .sort()
+            .forEach(function (event) { console.log(event); });
+        console.log("> EVENTS FOR ".concat(attr['nodetype'], "/").concat(attr['title']));
+    });
+}
+function loadGraph(callback) {
+    // @ts-ignore
+    var port_value = document.getElementById("port").value;
+    var port = port_value ? port_value : "8080";
+    jQuery.ajax({
+        'url': "http://localhost:".concat(port, "/load-graph"),
+        'success': function (graphData) {
+            var graph = gexf.parse(GraphologyGraph, graphData);
+            callback(graph);
+        }
+    });
+}
+function renderGraph(graph) {
+    circular.assign(graph);
+    var container = document.getElementById("sigma-container");
+    var renderer = new Sigma(graph, container);
+    renderer.on("clickNode", onNodeClick);
+    renderer.setSetting("nodeReducer", function (node, data) {
+        var res = __assign({}, data);
+        if (data.nodetype == "UNCURATED_NOTE") {
+            res.hidden = true;
+        }
+        if (data.nodetype == "PERSON") {
+            res.color = "pink";
+        }
+        return res;
+    });
+}
+loadGraph(renderGraph);

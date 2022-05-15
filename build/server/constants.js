@@ -10,10 +10,12 @@ export { DATA };
 var ENDPOINTS = /** @class */ (function () {
     function ENDPOINTS() {
     }
+    ENDPOINTS.LOAD_GRAPH = "/load-graph";
     ENDPOINTS.CREATE_UNCURATED_NOTE = "/create-uncurated-note";
     ENDPOINTS.CREATE_CURATED_NOTE = "/create-curated-note";
     ENDPOINTS.REFERENCE_CURATED_NOTE = "/reference-curated-note";
     ENDPOINTS.EDIT_NOTE = "/edit-note";
+    ENDPOINTS.CREATE_PERSON = "/create-person";
     return ENDPOINTS;
 }());
 export { ENDPOINTS };
@@ -23,6 +25,8 @@ var NODE_TYPES = /** @class */ (function () {
     }
     NODE_TYPES.CURATED_NOTE = "CURATED_NOTE";
     NODE_TYPES.UNCURATED_NOTE = "UNCURATED_NOTE";
+    NODE_TYPES.PERSON = "PERSON";
+    NODE_TYPES.PICTURE = "PICTURE";
     return NODE_TYPES;
 }());
 export { NODE_TYPES };

@@ -43,8 +43,11 @@ function onNodeClick({ node }){
 }
 
 function loadGraph(callback){
+	// @ts-ignore
+	const port_value = document.getElementById("port").value;
+	const port = port_value ? port_value : "8080";
 	jQuery.ajax( {
-		'url': 'http://localhost:8080/load-graph',
+		'url': `http://localhost:${port}/load-graph`,
 		'success': function(graphData){
 				const graph =  gexf.parse(GraphologyGraph, graphData);
 				callback(graph);

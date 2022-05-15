@@ -81,30 +81,25 @@ export abstract class GraphBuilder {
 		return graph_path + GraphBuilder.GRAPH_FILE
 	}
 
-	static loadGraphData(path: string = GraphBuilder.PATH){
-		return fs.readFileSync(path, {'encoding':'utf8'});
+	static loadGraphData(graph_path: string){
+		const graph_filename = GraphBuilder._buildGraphPath(graph_path);
+		console.log("GraphBuilder.loadGraphData", graph_filename);
+		return fs.readFileSync(graph_filename, {'encoding':'utf8'});
 	}
 
 	// return {graph_name, Graph}
 	static loadGraphs(): Record<string, Graph>{
 		var graphs = {};
 		GraphBuilder.GRAPHS.forEach((graph_path) => {
-			var graph;
-			try{
-				// @ts-ignore
-				graph = gexf.parse(Graph, GraphBuilder.loadGraphData(GraphBuilder._buildGraphPath(graph_path)));
-			}	catch {
-				graph =  new Graph();
-			}
-			graphs[graph_path] = graph;
+			graphs[graph_path] = GraphBuilder.loadGraph(graph_path);;
 		});
 		return graphs;
 	}
 
-	static loadGraph(): Graph{
+	static loadGraph(graph_path: string): Graph{
 		try{
 			// @ts-ignore
-			return gexf.parse(Graph, GraphBuilder.loadGraphData());
+			return gexf.parse(Graph, GraphBuilder.loadGraphData(graph_path));
 		}	catch {
 			return new Graph();
 		}

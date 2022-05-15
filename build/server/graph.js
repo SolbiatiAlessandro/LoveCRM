@@ -15,12 +15,25 @@ var __extends = (this && this.__extends) || (function () {
 })();
 import GraphologyGraph from 'graphology';
 import * as gexf from 'graphology-gexf';
+import * as uuid from 'uuid';
 import * as fs from 'fs';
+import * as constants from "./constants.js";
 import * as utils from "./utils.js";
+import { Event } from "./event.js";
 var GraphNode = /** @class */ (function () {
     function GraphNode() {
         this.title = "Untitled";
+        this.events = [];
+        this.uuid = uuid.v1();
+        this.events.push(new Event(constants.EVENT_TYPE.CREATE));
     }
+    GraphNode.prototype.saveValues = function () {
+        return utils.mergeDictionaries({
+            title: this.title,
+            nodetype: this.nodeType,
+            events: JSON.stringify(this.events.map(function (event) { return event.saveValues(); }))
+        }, this.additionalSaveValues());
+    };
     GraphNode.prototype.visualisationValues = function () {
         return {
             x: Math.random() * 20 - 10,
@@ -28,6 +41,12 @@ var GraphNode = /** @class */ (function () {
             size: 10,
             label: this.title
         };
+    };
+    GraphNode.addEvent = function (events, eventType) {
+        var _events = JSON.parse(events);
+        var editEvent = new Event(eventType);
+        _events.push(editEvent.saveValues());
+        return JSON.stringify(_events);
     };
     return GraphNode;
 }());
@@ -53,13 +72,27 @@ export { Graph };
 var GraphBuilder = /** @class */ (function () {
     function GraphBuilder() {
     }
-    GraphBuilder.loadGraphData = function () {
-        return fs.readFileSync(GraphBuilder.PATH, { 'encoding': 'utf8' });
+    GraphBuilder._buildGraphPath = function (graph_path) {
+        return graph_path + GraphBuilder.GRAPH_FILE;
     };
-    GraphBuilder.loadGraph = function () {
+    GraphBuilder.loadGraphData = function (graph_path) {
+        var graph_filename = GraphBuilder._buildGraphPath(graph_path);
+        console.log("GraphBuilder.loadGraphData", graph_filename);
+        return fs.readFileSync(graph_filename, { 'encoding': 'utf8' });
+    };
+    // return {graph_name, Graph}
+    GraphBuilder.loadGraphs = function () {
+        var graphs = {};
+        GraphBuilder.GRAPHS.forEach(function (graph_path) {
+            graphs[graph_path] = GraphBuilder.loadGraph(graph_path);
+            ;
+        });
+        return graphs;
+    };
+    GraphBuilder.loadGraph = function (graph_path) {
         try {
             // @ts-ignore
-            return gexf.parse(Graph, GraphBuilder.loadGraphData());
+            return gexf.parse(Graph, GraphBuilder.loadGraphData(graph_path));
         }
         catch (_a) {
             return new Graph();
@@ -68,12 +101,14 @@ var GraphBuilder = /** @class */ (function () {
     GraphBuilder.save = function (graph) {
         fs.writeFileSync(GraphBuilder.PATH, gexf.write(graph));
     };
-    // TODO: figure out how to do os commands from node
-    // and get list of graph as `ls data/[*/*:graphs]`
-    GraphBuilder.GRAPHS = ['./data/private/lovegraph/', './data/public/testgraph/'];
-    GraphBuilder.CURRENT_GRAPH = GraphBuilder.GRAPHS[1];
-    GraphBuilder.GRAPH_NAME = "graph.gexf";
-    GraphBuilder.PATH = GraphBuilder.CURRENT_GRAPH + GraphBuilder.GRAPH_NAME;
+    // you could get GRAPHS with exec but it's overkill
+    // const execSync = require('child_process').execSync;
+    // code = execSync('ls data/*<fancy regex>');
+    // new Buffer.from(code).toString('ascii')
+    GraphBuilder.GRAPHS = ['./data/private/lovegraph/', './data/public/testgraph/', './data/private/fbgraph/'];
+    GraphBuilder.CURRENT_GRAPH = GraphBuilder.GRAPHS[2];
+    GraphBuilder.GRAPH_FILE = "graph.gexf";
+    GraphBuilder.PATH = GraphBuilder._buildGraphPath(GraphBuilder.CURRENT_GRAPH);
     return GraphBuilder;
 }());
 export { GraphBuilder };

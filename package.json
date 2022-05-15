@@ -8,6 +8,7 @@
 		"graphology-gexf": "^0.10.1",
 		"graphology-layout": "^0.6.0",
 		"graphology-layout-force": "^0.2.4",
+		"graphology-layout-forceatlas2": "^0.9.1",
 		"jquery": "^3.6.0",
 		"kotatsu": "^0.22.3",
 		"sigma": "^2.2.0",
@@ -21,6 +22,6 @@
 	},
 	"scripts": {
 		"server": "npx tsc && node ./build/server/server.js",
-		"client": "node ./node_modules/kotatsu/cli.js serve --typescript src/client/client.ts --public / ./public"
+		"client": "node ./node_modules/kotatsu/cli.js serve --typescript src/client/client.ts --public / ./public "
 	}
 }

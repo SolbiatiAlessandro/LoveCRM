@@ -14,42 +14,22 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import * as fs from 'fs';
-import * as uuid from 'uuid';
 import * as constants from "./constants.js";
-import * as utils from "./utils.js";
 import { GraphNode, GraphBuilder } from "./graph.js";
-import { Event } from "./event.js";
 var Note = /** @class */ (function (_super) {
     __extends(Note, _super);
     function Note() {
         var _this = _super.call(this) || this;
         _this.PATH = GraphBuilder.CURRENT_GRAPH + constants.DATA.NOTE_PATH;
-        _this.events = [];
-        _this.uuid = uuid.v1();
         _this.mdfile = _this.PATH + _this.uuid + ".md";
-        _this.events.push(new Event(constants.EVENT_TYPE.CREATE));
-        _this.events.push(new Event(constants.EVENT_TYPE.CREATE));
         return _this;
     }
-    // overwrite this if you want to store additional values in memory
     Note.prototype.additionalSaveValues = function () {
-        return {};
-    };
-    Note.prototype.saveValues = function () {
-        return utils.mergeDictionaries({
+        return {
             mdfile: this.mdfile,
-            title: this.title,
             // TODO: figure out how to call pwd from javascript
             fullpath: "/Users/lessandro/Hacking/LOVECRM/v1_typescript" + this.mdfile.substring(1),
-            nodetype: this.nodeType,
-            events: JSON.stringify(this.events.map(function (event) { return event.saveValues(); }))
-        }, this.additionalSaveValues());
-    };
-    Note.addEvent = function (events, eventType) {
-        var _events = JSON.parse(events);
-        var editEvent = new Event(eventType);
-        _events.push(editEvent.saveValues());
-        return JSON.stringify(_events);
+        };
     };
     return Note;
 }(GraphNode));
@@ -70,12 +50,23 @@ var UncuratedNote = /** @class */ (function (_super) {
     function UncuratedNote() {
         var _this = _super.call(this) || this;
         _this.nodeType = constants.NODE_TYPES.UNCURATED_NOTE;
-        _this.title = Date();
+        _this.title = _this.uuid;
         return _this;
     }
     return UncuratedNote;
 }(Note));
 export { UncuratedNote };
+var Person = /** @class */ (function (_super) {
+    __extends(Person, _super);
+    function Person(personName) {
+        var _this = _super.call(this) || this;
+        _this.nodeType = constants.NODE_TYPES.PERSON;
+        _this.title = personName;
+        return _this;
+    }
+    return Person;
+}(Note));
+export { Person };
 var NoteBuilder = /** @class */ (function () {
     function NoteBuilder() {
     }
@@ -88,7 +79,9 @@ var NoteBuilder = /** @class */ (function () {
     };
     NoteBuilder.referenceCuratedNote = function (graph, uncuratedNoteUUID, curatedNoteUUID) {
         graph.addEdge(curatedNoteUUID, uncuratedNoteUUID);
-        // TODO: overwrite addEdge and save graph
+        // TODO: how to overwrite in typescript? overwrite addEdge and 
+        // save graph directly inside there instead of needing to calling 
+        // it outside
         GraphBuilder.save(graph);
     };
     NoteBuilder.createCuratedNote = function (graph, title, parentNoteUUID) {
@@ -101,6 +94,13 @@ var NoteBuilder = /** @class */ (function () {
         }
         GraphBuilder.save(graph);
         return note.mdfile;
+    };
+    NoteBuilder.createPerson = function (graph, personName) {
+        var person = new Person(personName);
+        fs.writeFileSync(person.mdfile, "# " + personName + NoteBuilder.NOTE_FOOTER + person.uuid);
+        graph.add(person);
+        GraphBuilder.save(graph);
+        return person.mdfile;
     };
     NoteBuilder.noteEvent = function (graph, noteUUID, eventType) {
         graph.updateNode(noteUUID, function (attr) {
