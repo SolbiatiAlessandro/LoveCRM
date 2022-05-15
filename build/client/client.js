@@ -48,10 +48,14 @@ function onNodeClick(_a) {
         console.log("> EVENTS FOR ".concat(attr['nodetype'], "/").concat(attr['title']));
     });
 }
+function getServerPortValue() {
+    var urlSearchParams = new URLSearchParams(window.location.search);
+    var params = Object.fromEntries(urlSearchParams.entries());
+    return params['server'] ? params['server'] : "8080";
+}
 function loadGraph(callback) {
     // @ts-ignore
-    var port_value = document.getElementById("port").value;
-    var port = port_value ? port_value : "8080";
+    var port = getServerPortValue();
     jQuery.ajax({
         'url': "http://localhost:".concat(port, "/load-graph"),
         'success': function (graphData) {

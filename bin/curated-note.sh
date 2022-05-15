@@ -1,3 +1,4 @@
 TITLE="$1"
 PARENT="$2"
-curl "http://localhost:8080/create-curated-note?title=$TITLE&parent=$PARENT" 
+PORT="${3:-8080}"
+curl "http://localhost:$PORT/create-curated-note?title=$TITLE&parent=$PARENT" 
