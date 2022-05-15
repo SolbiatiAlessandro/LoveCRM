@@ -18,10 +18,10 @@ import * as constants from "./constants.js";
 import { GraphNode, GraphBuilder } from "./graph.js";
 var Note = /** @class */ (function (_super) {
     __extends(Note, _super);
-    function Note() {
+    function Note(PATH) {
         var _this = _super.call(this) || this;
-        _this.PATH = GraphBuilder.CURRENT_GRAPH + constants.DATA.NOTE_PATH;
-        _this.mdfile = _this.PATH + _this.uuid + ".md";
+        _this.PATH = PATH;
+        _this.mdfile = _this.PATH + "markdown/" + _this.uuid + ".md";
         return _this;
     }
     Note.prototype.additionalSaveValues = function () {
@@ -35,8 +35,8 @@ var Note = /** @class */ (function (_super) {
 }(GraphNode));
 var CuratedNote = /** @class */ (function (_super) {
     __extends(CuratedNote, _super);
-    function CuratedNote(parentUUID, title) {
-        var _this = _super.call(this) || this;
+    function CuratedNote(PATH, parentUUID, title) {
+        var _this = _super.call(this, PATH) || this;
         _this.parentUUID = parentUUID;
         _this.title = title;
         _this.nodeType = constants.NODE_TYPES.CURATED_NOTE;
@@ -47,8 +47,8 @@ var CuratedNote = /** @class */ (function (_super) {
 export { CuratedNote };
 var UncuratedNote = /** @class */ (function (_super) {
     __extends(UncuratedNote, _super);
-    function UncuratedNote() {
-        var _this = _super.call(this) || this;
+    function UncuratedNote(PATH) {
+        var _this = _super.call(this, PATH) || this;
         _this.nodeType = constants.NODE_TYPES.UNCURATED_NOTE;
         _this.title = _this.uuid;
         return _this;
@@ -58,8 +58,8 @@ var UncuratedNote = /** @class */ (function (_super) {
 export { UncuratedNote };
 var Person = /** @class */ (function (_super) {
     __extends(Person, _super);
-    function Person(personName) {
-        var _this = _super.call(this) || this;
+    function Person(PATH, personName) {
+        var _this = _super.call(this, PATH) || this;
         _this.nodeType = constants.NODE_TYPES.PERSON;
         _this.title = personName;
         return _this;
@@ -71,7 +71,7 @@ var NoteBuilder = /** @class */ (function () {
     function NoteBuilder() {
     }
     NoteBuilder.createUncuratedNote = function (graph) {
-        var note = new UncuratedNote();
+        var note = new UncuratedNote(graph.graph_path);
         fs.writeFileSync(note.mdfile, NoteBuilder.NOTE_FOOTER + note.uuid);
         graph.add(note);
         GraphBuilder.save(graph);
@@ -86,7 +86,7 @@ var NoteBuilder = /** @class */ (function () {
     };
     NoteBuilder.createCuratedNote = function (graph, title, parentNoteUUID) {
         title = title ? title : "Untitled";
-        var note = new CuratedNote(parentNoteUUID, title);
+        var note = new CuratedNote(graph.graph_path, parentNoteUUID, title);
         fs.writeFileSync(note.mdfile, "# " + title + NoteBuilder.NOTE_FOOTER + note.uuid);
         graph.add(note);
         if (parentNoteUUID) {
@@ -96,7 +96,7 @@ var NoteBuilder = /** @class */ (function () {
         return note.mdfile;
     };
     NoteBuilder.createPerson = function (graph, personName) {
-        var person = new Person(personName);
+        var person = new Person(graph.graph_path, personName);
         fs.writeFileSync(person.mdfile, "# " + personName + NoteBuilder.NOTE_FOOTER + person.uuid);
         graph.add(person);
         GraphBuilder.save(graph);

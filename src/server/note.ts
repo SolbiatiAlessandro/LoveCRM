@@ -17,7 +17,7 @@ abstract class Note extends GraphNode {
 
 	constructor(public readonly PATH: string){
 		super();
-		this.mdfile = this.PATH + this.uuid + ".md";
+		this.mdfile = this.PATH + "markdown/" + this.uuid + ".md";
 	}
 }
 

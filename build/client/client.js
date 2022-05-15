@@ -13,7 +13,8 @@ import Sigma from "sigma";
 import * as jQuery from "jquery";
 import * as gexf from 'graphology-gexf';
 import GraphologyGraph from 'graphology';
-import { circular } from 'graphology-layout';
+import FA2Layout from "graphology-layout-forceatlas2/worker";
+import forceAtlas2 from "graphology-layout-forceatlas2";
 // in the client events are just formatted strings
 function eventsForNode(graph, node) {
     var attr = graph.getNodeAttributes(node);
@@ -65,7 +66,14 @@ function loadGraph(callback) {
     });
 }
 function renderGraph(graph) {
-    circular.assign(graph);
+    var sensibleSettings = forceAtlas2.inferSettings(graph);
+    var fa2Layout = new FA2Layout(graph, {
+        settings: sensibleSettings,
+    });
+    fa2Layout.start();
+    setInterval(function () {
+        fa2Layout.stop();
+    }, 1000);
     var container = document.getElementById("sigma-container");
     var renderer = new Sigma(graph, container);
     renderer.on("clickNode", onNodeClick);

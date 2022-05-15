@@ -168,11 +168,57 @@
         <viz:size value="10"/>
         <viz:position x="-1.3719390858090552" y="5.67191161587151"/>
       </node>
+      <node id="04d09680-d46f-11ec-be7b-3f6275b95365" label="test3">
+        <attvalues>
+          <attvalue for="mdfile" value="./data/public/testgraph/04d09680-d46f-11ec-be7b-3f6275b95365.md"/>
+          <attvalue for="title" value="test3"/>
+          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/public/testgraph/04d09680-d46f-11ec-be7b-3f6275b95365.md"/>
+          <attvalue for="nodetype" value="CURATED_NOTE"/>
+          <attvalue for="events" value="[[&quot;CREATE&quot;,&quot;2022-05-15T16:49:42.889Z&quot;]]"/>
+        </attvalues>
+        <viz:size value="10"/>
+        <viz:position x="-5.172312827944214" y="8.39276928904114"/>
+      </node>
+      <node id="6e6484b0-d47b-11ec-94f2-f132e45de5bf" label="6e6484b0-d47b-11ec-94f2-f132e45de5bf">
+        <attvalues>
+          <attvalue for="mdfile" value="./data/public/testgraph/6e6484b0-d47b-11ec-94f2-f132e45de5bf.md"/>
+          <attvalue for="title" value="6e6484b0-d47b-11ec-94f2-f132e45de5bf"/>
+          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/public/testgraph/6e6484b0-d47b-11ec-94f2-f132e45de5bf.md"/>
+          <attvalue for="nodetype" value="UNCURATED_NOTE"/>
+          <attvalue for="events" value="[[&quot;CREATE&quot;,&quot;2022-05-15T18:18:33.979Z&quot;]]"/>
+        </attvalues>
+        <viz:size value="10"/>
+        <viz:position x="6.143965152144567" y="4.472413530130694"/>
+      </node>
+      <node id="9ed46bb0-d47b-11ec-a362-effec280072b" label="test4">
+        <attvalues>
+          <attvalue for="mdfile" value="./data/public/testgraph/markdown/9ed46bb0-d47b-11ec-a362-effec280072b.md"/>
+          <attvalue for="title" value="test4"/>
+          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/public/testgraph/markdown/9ed46bb0-d47b-11ec-a362-effec280072b.md"/>
+          <attvalue for="nodetype" value="CURATED_NOTE"/>
+          <attvalue for="events" value="[[&quot;CREATE&quot;,&quot;2022-05-15T18:19:55.243Z&quot;]]"/>
+        </attvalues>
+        <viz:size value="10"/>
+        <viz:position x="2.1805094326708065" y="8.421292853232046"/>
+      </node>
+      <node id="a34affb0-d47b-11ec-a362-effec280072b" label="a34affb0-d47b-11ec-a362-effec280072b">
+        <attvalues>
+          <attvalue for="mdfile" value="./data/public/testgraph/markdown/a34affb0-d47b-11ec-a362-effec280072b.md"/>
+          <attvalue for="title" value="a34affb0-d47b-11ec-a362-effec280072b"/>
+          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/public/testgraph/markdown/a34affb0-d47b-11ec-a362-effec280072b.md"/>
+          <attvalue for="nodetype" value="UNCURATED_NOTE"/>
+          <attvalue for="events" value="[[&quot;CREATE&quot;,&quot;2022-05-15T18:20:02.731Z&quot;]]"/>
+        </attvalues>
+        <viz:size value="10"/>
+        <viz:position x="-3.2130619232799607" y="-5.252050144340554"/>
+      </node>
     </nodes>
     <edges>
       <edge id="geid_127_0" source="7fda1f50-c9ce-11ec-a516-2f07dc84c67d" target="77e83980-c9c9-11ec-a797-21cf95933d2f"/>
       <edge id="geid_127_1" source="7fda1f50-c9ce-11ec-a516-2f07dc84c67d" target="28020960-c9d2-11ec-a516-2f07dc84c67d"/>
       <edge id="geid_143_0" source="7fda1f50-c9ce-11ec-a516-2f07dc84c67d" target="d7dd8c20-d46c-11ec-88fb-9bd7edff7b0b"/>
+      <edge id="geid_67_0" source="7fda1f50-c9ce-11ec-a516-2f07dc84c67d" target="04d09680-d46f-11ec-be7b-3f6275b95365"/>
+      <edge id="geid_75_0" source="7fda1f50-c9ce-11ec-a516-2f07dc84c67d" target="9ed46bb0-d47b-11ec-a362-effec280072b"/>
     </edges>
   </graph>
 </gexf>
