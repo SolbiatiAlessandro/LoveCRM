@@ -1,6 +1,7 @@
 import {Graph, GraphBuilder} from './graph.js';
 import {NoteBuilder} from './note.js';
 import * as constants from './constants.js';
+import { execSync	} from 'child_process';
 
 //const graph: Graph = GraphBuilder.loadGraph();
 const graphs: Record<string, Graph> = GraphBuilder.loadGraphs();
@@ -11,6 +12,18 @@ const ports: Record<string, string> = {}
 Object.keys(graphs).forEach((graph_name) => {
 	ports[port] = graph_name;
 	port += 1;
+})
+
+Object.values(ports).forEach((path) => {
+		console.log(`autosaving ${ path } with automated git commit..`);
+		execSync(`cd ${ path } && git add *`);
+		try{
+			execSync(`cd ${ path } && git commit -m "automated commit"`);
+			console.log(`autosaving ${ path }: SUCCESS`);
+		} catch (err) {
+		  console.log(new Buffer(err.stdout).toString('ascii'));
+			console.log(`autosaving ${ path }: FAILED`);
+		}
 })
 console.log("serving following graphs:");
 console.log(ports);
