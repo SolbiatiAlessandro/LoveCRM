@@ -1,5 +1,7 @@
 data/private/**
 
+public/**
+
 
 *.swp
 *.swo

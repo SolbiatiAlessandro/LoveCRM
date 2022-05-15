@@ -19,6 +19,10 @@ function eventsForNode(graph, node): Array<String>{
 		});
 }
 
+function onStageClick(_){
+	document.getElementById("sigma-container").style["background-color"] = "white";
+}
+
 function onNodeClick({ node }){
 	loadGraph(function(graph){
 		// 1) URL to clipboard
@@ -40,6 +44,9 @@ function onNodeClick({ node }){
 			.sort()
 			.forEach(event => {console.log(event)})
 		console.log(`> EVENTS FOR ${attr['nodetype']}/${ attr['title'] }`);
+
+		// 3) Background color
+		document.getElementById("sigma-container").style["background-color"] = "blue";
 	});
 }
 
@@ -69,12 +76,13 @@ function renderGraph(graph){
 		fa2Layout.start();
 		setInterval(function(){
 			fa2Layout.stop();
-		}, 1000);
+		}, 5000);
 
 		const container = document.getElementById("sigma-container") as HTMLElement;
 
 		const renderer = new Sigma(graph, container);
 		renderer.on("clickNode", onNodeClick);
+		renderer.on("clickStage", onStageClick);
 
 		renderer.setSetting("nodeReducer", (node, data) => {
 			const res: Partial<NodeDisplayData> = { ...data };
