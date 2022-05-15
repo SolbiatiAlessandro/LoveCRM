@@ -42,10 +42,15 @@ function onNodeClick({ node }){
 	});
 }
 
+function getServerPortValue(): string{
+	const urlSearchParams = new URLSearchParams(window.location.search);
+	const params = Object.fromEntries(urlSearchParams.entries());
+	return params['server'] ? params['server'] : "8080";
+}
+
 function loadGraph(callback){
 	// @ts-ignore
-	const port_value = document.getElementById("port").value;
-	const port = port_value ? port_value : "8080";
+	const port = getServerPortValue();
 	jQuery.ajax( {
 		'url': `http://localhost:${port}/load-graph`,
 		'success': function(graphData){
