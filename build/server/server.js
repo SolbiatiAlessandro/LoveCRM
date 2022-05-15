@@ -29,7 +29,7 @@ function getGraphFromRequest(req) {
     var port = req.socket.localPort;
     var graph_name = ports[port];
     console.log("getGraphFromRequest", port, graph_name);
-    return [graphs[graph_name], graph_name];
+    return graphs[graph_name];
 }
 import express from "express";
 import cors from "cors";
@@ -39,20 +39,14 @@ app.get("/", function (req, res) {
     var graph = getGraphFromRequest(req)[0];
     res.send("graph order is ".concat(graph.order));
 });
-app.get("/test", function (req, res) {
-    var graph = getGraphFromRequest(req)[0];
-    graph.addExampleNode();
-    res.sendStatus(200);
-});
 // load graph string from browser for GraphBuilder.loadGraph
 app.get(constants.ENDPOINTS.LOAD_GRAPH, function (req, res) {
-    var graph = getGraphFromRequest(req)[0];
-    var graph_path = getGraphFromRequest(req)[1];
+    var graph = getGraphFromRequest(req);
     console.log(constants.ENDPOINTS.LOAD_GRAPH, req.query);
-    res.send(GraphBuilder.loadGraphData(graph_path));
+    res.send(GraphBuilder.loadGraphData(graph.graph_path));
 });
 app.get(constants.ENDPOINTS.CREATE_UNCURATED_NOTE, function (req, res) {
-    var graph = getGraphFromRequest(req)[0];
+    var graph = getGraphFromRequest(req);
     console.log(constants.ENDPOINTS.CREATE_UNCURATED_NOTE, req.query);
     var note = NoteBuilder.createUncuratedNote(graph);
     console.log("200 OK", note);
@@ -62,7 +56,7 @@ app.get(constants.ENDPOINTS.CREATE_UNCURATED_NOTE, function (req, res) {
 // title: string 
 // parent: string (uuid of parent note)
 app.get(constants.ENDPOINTS.CREATE_CURATED_NOTE, function (req, res) {
-    var graph = getGraphFromRequest(req)[0];
+    var graph = getGraphFromRequest(req);
     console.log(constants.ENDPOINTS.CREATE_CURATED_NOTE, req.query);
     var note = NoteBuilder.createCuratedNote(graph, req.query.title, req.query.parent);
     console.log("200 OK", note);
@@ -70,7 +64,7 @@ app.get(constants.ENDPOINTS.CREATE_CURATED_NOTE, function (req, res) {
 });
 // personName: string 
 app.get(constants.ENDPOINTS.CREATE_PERSON, function (req, res) {
-    var graph = getGraphFromRequest(req)[0];
+    var graph = getGraphFromRequest(req);
     console.log(constants.ENDPOINTS.CREATE_PERSON, req.query);
     var note = NoteBuilder.createPerson(graph, req.query.personName);
     console.log("200 OK", note);
@@ -79,7 +73,7 @@ app.get(constants.ENDPOINTS.CREATE_PERSON, function (req, res) {
 // uncuratedNoteUUID: uuid
 // curatedNoteUUID: uuid
 app.get(constants.ENDPOINTS.REFERENCE_CURATED_NOTE, function (req, res) {
-    var graph = getGraphFromRequest(req)[0];
+    var graph = getGraphFromRequest(req);
     console.log(constants.ENDPOINTS.REFERENCE_CURATED_NOTE, req.query);
     NoteBuilder.referenceCuratedNote(graph, req.query.uncuratedNoteUUID, req.query.curatedNoteUUID);
     console.log("200 OK");
@@ -87,7 +81,7 @@ app.get(constants.ENDPOINTS.REFERENCE_CURATED_NOTE, function (req, res) {
 });
 // noteUUID: uuid
 app.get(constants.ENDPOINTS.EDIT_NOTE, function (req, res) {
-    var graph = getGraphFromRequest(req)[0];
+    var graph = getGraphFromRequest(req);
     console.log(constants.ENDPOINTS.EDIT_NOTE, req.query);
     NoteBuilder.noteEvent(graph, req.query.noteUUID, constants.EVENT_TYPE.EDIT);
     console.log("200 OK");

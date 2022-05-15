@@ -49,12 +49,15 @@ export abstract class GraphNode {
 
 export class Graph extends GraphologyGraph {
 	public PUBLIC: boolean = true;
+	public graph_path: string;
 
+	/* // graphology API EXAMPLE
 	addExampleNode(){
 		this.addNode("John3", { x: 0, y: 10, size: 5, label: "John2", color: "blue" });
 		this.addEdge('John', 'John3');
 		GraphBuilder.save(this);
 	}
+	*/
 
 	add(node: GraphNode){
 		this.addNode(
@@ -99,14 +102,18 @@ export abstract class GraphBuilder {
 	static loadGraph(graph_path: string): Graph{
 		try{
 			// @ts-ignore
-			return gexf.parse(Graph, GraphBuilder.loadGraphData(graph_path));
+			const graph: Graph = gexf.parse(Graph, GraphBuilder.loadGraphData(graph_path));
+			graph.graph_path = graph_path;
+			return graph;
 		}	catch {
 			return new Graph();
 		}
 	}
 
 	static save(graph: Graph){
-		fs.writeFileSync(GraphBuilder.PATH, gexf.write(graph));
+		fs.writeFileSync(
+			GraphBuilder._buildGraphPath(graph.graph_path), 
+			gexf.write(graph));
 	}
 }
 

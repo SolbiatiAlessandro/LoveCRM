@@ -58,11 +58,13 @@ var Graph = /** @class */ (function (_super) {
         _this.PUBLIC = true;
         return _this;
     }
-    Graph.prototype.addExampleNode = function () {
+    /* // graphology API EXAMPLE
+    addExampleNode(){
         this.addNode("John3", { x: 0, y: 10, size: 5, label: "John2", color: "blue" });
         this.addEdge('John', 'John3');
         GraphBuilder.save(this);
-    };
+    }
+    */
     Graph.prototype.add = function (node) {
         this.addNode(node.uuid, utils.mergeDictionaries(node.visualisationValues(), node.saveValues()));
     };
@@ -92,14 +94,16 @@ var GraphBuilder = /** @class */ (function () {
     GraphBuilder.loadGraph = function (graph_path) {
         try {
             // @ts-ignore
-            return gexf.parse(Graph, GraphBuilder.loadGraphData(graph_path));
+            var graph = gexf.parse(Graph, GraphBuilder.loadGraphData(graph_path));
+            graph.graph_path = graph_path;
+            return graph;
         }
         catch (_a) {
             return new Graph();
         }
     };
     GraphBuilder.save = function (graph) {
-        fs.writeFileSync(GraphBuilder.PATH, gexf.write(graph));
+        fs.writeFileSync(GraphBuilder._buildGraphPath(graph.graph_path), gexf.write(graph));
     };
     // you could get GRAPHS with exec but it's overkill
     // const execSync = require('child_process').execSync;

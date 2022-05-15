@@ -157,10 +157,22 @@
         <viz:size value="10"/>
         <viz:position x="-0.09095511118550093" y="6.136458413735085"/>
       </node>
+      <node id="d7dd8c20-d46c-11ec-88fb-9bd7edff7b0b" label="test2">
+        <attvalues>
+          <attvalue for="mdfile" value="./data/private/fbgraph/markdown/d7dd8c20-d46c-11ec-88fb-9bd7edff7b0b.md"/>
+          <attvalue for="title" value="test2"/>
+          <attvalue for="fullpath" value="/Users/lessandro/Hacking/LOVECRM/v1_typescript/data/private/fbgraph/markdown/d7dd8c20-d46c-11ec-88fb-9bd7edff7b0b.md"/>
+          <attvalue for="nodetype" value="CURATED_NOTE"/>
+          <attvalue for="events" value="[[&quot;CREATE&quot;,&quot;2022-05-15T16:34:08.483Z&quot;]]"/>
+        </attvalues>
+        <viz:size value="10"/>
+        <viz:position x="-1.3719390858090552" y="5.67191161587151"/>
+      </node>
     </nodes>
     <edges>
       <edge id="geid_127_0" source="7fda1f50-c9ce-11ec-a516-2f07dc84c67d" target="77e83980-c9c9-11ec-a797-21cf95933d2f"/>
       <edge id="geid_127_1" source="7fda1f50-c9ce-11ec-a516-2f07dc84c67d" target="28020960-c9d2-11ec-a516-2f07dc84c67d"/>
+      <edge id="geid_143_0" source="7fda1f50-c9ce-11ec-a516-2f07dc84c67d" target="d7dd8c20-d46c-11ec-88fb-9bd7edff7b0b"/>
     </edges>
   </graph>
 </gexf>
