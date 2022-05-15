@@ -21,6 +21,7 @@ function eventsForNode(graph, node): Array<String>{
 
 function onStageClick(_){
 	document.getElementById("sigma-container").style["background-color"] = "white";
+	document.getElementById("sigma-container").style["background-image"] = "";
 }
 
 function onNodeClick({ node }){
@@ -45,8 +46,10 @@ function onNodeClick({ node }){
 			.forEach(event => {console.log(event)})
 		console.log(`> EVENTS FOR ${attr['nodetype']}/${ attr['title'] }`);
 
-		// 3) Background color
-		document.getElementById("sigma-container").style["background-color"] = "blue";
+		// 3) Background 
+		const port = getServerPortValue();
+		// TODO make backgroud dynamiac based on which node you click
+		document.getElementById("sigma-container").style["background-image"] = port == "8080" ? "url(/lovegraph_default.jpeg)" : "url(/fbgraph_default.jpeg)";
 	});
 }
 
