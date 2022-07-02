@@ -21,6 +21,7 @@ var Note = /** @class */ (function (_super) {
     function Note(PATH) {
         var _this = _super.call(this) || this;
         _this.PATH = PATH;
+        // TODO: mdfile might not always be a file (see File class)
         _this.mdfile = _this.PATH + "markdown/" + _this.uuid + ".md";
         return _this;
     }
@@ -67,6 +68,20 @@ var Person = /** @class */ (function (_super) {
     return Person;
 }(Note));
 export { Person };
+var File = /** @class */ (function (_super) {
+    __extends(File, _super);
+    function File(PATH, title, filePath) {
+        var _this = _super.call(this, PATH) || this;
+        _this.title = title;
+        _this.filePath = filePath;
+        _this.nodeType = constants.NODE_TYPES.FILE;
+        _this.mdfile = filePath;
+        _this.title = title;
+        return _this;
+    }
+    return File;
+}(Note));
+export { File };
 var NoteBuilder = /** @class */ (function () {
     function NoteBuilder() {
     }
@@ -101,6 +116,13 @@ var NoteBuilder = /** @class */ (function () {
         graph.add(person);
         GraphBuilder.save(graph);
         return person.mdfile;
+    };
+    NoteBuilder.createFile = function (graph, title, filePath, parentUUID) {
+        var file = new File(graph.graph_path, title, filePath);
+        graph.add(file);
+        graph.addEdge(parentUUID, file.uuid);
+        GraphBuilder.save(graph);
+        return file.uuid;
     };
     NoteBuilder.noteEvent = function (graph, noteUUID, eventType) {
         graph.updateNode(noteUUID, function (attr) {

@@ -1,0 +1,5 @@
+TITLE="$1"
+FILEPATH="$2"
+PARENTUUID="$3"
+PORT="${4:-8080}"
+curl "http://localhost:$PORT/create-file?title=$TITLE&filePath=$FILEPATH&parentUUID=$PARENTUUID"

@@ -49,7 +49,7 @@ function onNodeClick({ node }){
 		// 3) Background 
 		const port = getServerPortValue();
 		// TODO make backgroud dynamiac based on which node you click
-		document.getElementById("sigma-container").style["background-image"] = port == "8080" ? "url(/lovegraph_default.jpeg)" : "url(/fbgraph_default.jpeg)";
+		// document.getElementById("sigma-container").style["background-image"] = port == "8082" ? "url(/lovegraph_default.jpeg)" : "url(/fbgraph_default.jpeg)";
 	});
 }
 
@@ -95,6 +95,10 @@ function renderGraph(graph){
 
 			if(data.nodetype ==  "PERSON"){
 				res.color = "pink";
+			}
+
+			if(data.nodetype ==  "FILE"){
+				res.color = "black";
 			}
 			return res;
 		});

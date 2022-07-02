@@ -17,6 +17,7 @@ abstract class Note extends GraphNode {
 
 	constructor(public readonly PATH: string){
 		super();
+		// TODO: mdfile might not always be a file (see File class)
 		this.mdfile = this.PATH + "markdown/" + this.uuid + ".md";
 	}
 }
@@ -47,6 +48,16 @@ export class Person extends Note {
 		super(PATH);
 		this.title = personName;
 	}
+}
+
+export class File extends Note {
+	public nodeType: string = constants.NODE_TYPES.FILE;
+	constructor(PATH: string, public title: string, public filePath: string){
+		super(PATH);
+		this.mdfile = filePath;
+		this.title = title;
+	}
+
 }
 
 export abstract class NoteBuilder {
@@ -92,6 +103,19 @@ export abstract class NoteBuilder {
 		graph.add(person);
 		GraphBuilder.save(graph);
 		return person.mdfile;
+	}
+
+	static createFile(
+		graph: Graph,
+		title: string,
+		filePath: string,
+		parentUUID: string,
+	){
+		const file: File = new File(graph.graph_path, title, filePath);
+		graph.add(file);
+		graph.addEdge(parentUUID, file.uuid);
+		GraphBuilder.save(graph);
+		return file.uuid;
 	}
 
 	static noteEvent(graph: Graph, noteUUID: string, eventType: string){

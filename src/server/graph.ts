@@ -74,7 +74,7 @@ export abstract class GraphBuilder {
 		// const execSync = require('child_process').execSync;
 		// code = execSync('ls data/*<fancy regex>');
 		// new Buffer.from(code).toString('ascii')
-	public static GRAPHS = ['./data/private/lovegraph/', './data/public/testgraph/', './data/private/fbgraph/']
+	public static GRAPHS = ['./data/private/lovegraph/', './data/public/testgraph/', './data/private/fbgraph/', './data/private/lovegraphv2/']
 
 	public static CURRENT_GRAPH = GraphBuilder.GRAPHS[2];
 	public static GRAPH_FILE: string = "graph.gexf";

@@ -27,6 +27,10 @@ function eventsForNode(graph, node) {
         return "".concat(date.toLocaleString().split(' ')[1], " ").concat(event[0], " - ").concat(attr['nodetype'], "/").concat(attr['title'], " - ").concat(date);
     });
 }
+function onStageClick(_) {
+    document.getElementById("sigma-container").style["background-color"] = "white";
+    document.getElementById("sigma-container").style["background-image"] = "";
+}
 function onNodeClick(_a) {
     var node = _a.node;
     loadGraph(function (graph) {
@@ -47,6 +51,10 @@ function onNodeClick(_a) {
             .sort()
             .forEach(function (event) { console.log(event); });
         console.log("> EVENTS FOR ".concat(attr['nodetype'], "/").concat(attr['title']));
+        // 3) Background 
+        var port = getServerPortValue();
+        // TODO make backgroud dynamiac based on which node you click
+        document.getElementById("sigma-container").style["background-image"] = port == "8082" ? "url(/lovegraph_default.jpeg)" : "url(/fbgraph_default.jpeg)";
     });
 }
 function getServerPortValue() {
@@ -73,10 +81,11 @@ function renderGraph(graph) {
     fa2Layout.start();
     setInterval(function () {
         fa2Layout.stop();
-    }, 1000);
+    }, 5000);
     var container = document.getElementById("sigma-container");
     var renderer = new Sigma(graph, container);
     renderer.on("clickNode", onNodeClick);
+    renderer.on("clickStage", onStageClick);
     renderer.setSetting("nodeReducer", function (node, data) {
         var res = __assign({}, data);
         if (data.nodetype == "UNCURATED_NOTE") {
@@ -84,6 +93,9 @@ function renderGraph(graph) {
         }
         if (data.nodetype == "PERSON") {
             res.color = "pink";
+        }
+        if (data.nodetype == "FILE") {
+            res.color = "black";
         }
         return res;
     });

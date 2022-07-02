@@ -109,7 +109,7 @@ var GraphBuilder = /** @class */ (function () {
     // const execSync = require('child_process').execSync;
     // code = execSync('ls data/*<fancy regex>');
     // new Buffer.from(code).toString('ascii')
-    GraphBuilder.GRAPHS = ['./data/private/lovegraph/', './data/public/testgraph/', './data/private/fbgraph/'];
+    GraphBuilder.GRAPHS = ['./data/private/lovegraph/', './data/public/testgraph/', './data/private/fbgraph/', './data/private/lovegraphv2/'];
     GraphBuilder.CURRENT_GRAPH = GraphBuilder.GRAPHS[2];
     GraphBuilder.GRAPH_FILE = "graph.gexf";
     GraphBuilder.PATH = GraphBuilder._buildGraphPath(GraphBuilder.CURRENT_GRAPH);

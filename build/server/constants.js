@@ -7,29 +7,24 @@ var DATA = /** @class */ (function () {
     return DATA;
 }());
 export { DATA };
-var ENDPOINTS = /** @class */ (function () {
-    function ENDPOINTS() {
-    }
-    ENDPOINTS.LOAD_GRAPH = "/load-graph";
-    ENDPOINTS.CREATE_UNCURATED_NOTE = "/create-uncurated-note";
-    ENDPOINTS.CREATE_CURATED_NOTE = "/create-curated-note";
-    ENDPOINTS.REFERENCE_CURATED_NOTE = "/reference-curated-note";
-    ENDPOINTS.EDIT_NOTE = "/edit-note";
-    ENDPOINTS.CREATE_PERSON = "/create-person";
-    return ENDPOINTS;
-}());
-export { ENDPOINTS };
-// TODO: make enum
-var NODE_TYPES = /** @class */ (function () {
-    function NODE_TYPES() {
-    }
-    NODE_TYPES.CURATED_NOTE = "CURATED_NOTE";
-    NODE_TYPES.UNCURATED_NOTE = "UNCURATED_NOTE";
-    NODE_TYPES.PERSON = "PERSON";
-    NODE_TYPES.PICTURE = "PICTURE";
-    return NODE_TYPES;
-}());
-export { NODE_TYPES };
+export var ENDPOINTS;
+(function (ENDPOINTS) {
+    ENDPOINTS["LOAD_GRAPH"] = "/load-graph";
+    ENDPOINTS["CREATE_UNCURATED_NOTE"] = "/create-uncurated-note";
+    ENDPOINTS["CREATE_CURATED_NOTE"] = "/create-curated-note";
+    ENDPOINTS["REFERENCE_CURATED_NOTE"] = "/reference-curated-note";
+    ENDPOINTS["EDIT_NOTE"] = "/edit-note";
+    ENDPOINTS["CREATE_PERSON"] = "/create-person";
+    ENDPOINTS["CREATE_FILE"] = "/create-file";
+})(ENDPOINTS || (ENDPOINTS = {}));
+export var NODE_TYPES;
+(function (NODE_TYPES) {
+    NODE_TYPES["CURATED_NOTE"] = "CURATED_NOTE";
+    NODE_TYPES["UNCURATED_NOTE"] = "UNCURATED_NOTE";
+    NODE_TYPES["PERSON"] = "PERSON";
+    NODE_TYPES["PICTURE"] = "PICTURE";
+    NODE_TYPES["FILE"] = "FILE";
+})(NODE_TYPES || (NODE_TYPES = {}));
 // TODO: make enum
 var EVENT_TYPE = /** @class */ (function () {
     function EVENT_TYPE() {

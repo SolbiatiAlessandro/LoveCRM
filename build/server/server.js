@@ -70,6 +70,16 @@ app.get(constants.ENDPOINTS.CREATE_PERSON, function (req, res) {
     console.log("200 OK", note);
     res.send(note);
 });
+// title: string 
+// filePath: string 
+// parentUUID: string 
+app.get(constants.ENDPOINTS.CREATE_FILE, function (req, res) {
+    var graph = getGraphFromRequest(req);
+    console.log(constants.ENDPOINTS.CREATE_FILE, req.query);
+    var note = NoteBuilder.createFile(graph, req.query.title, req.query.filePath, req.query.parentUUID);
+    console.log("200 OK", note);
+    res.send(note);
+});
 // uncuratedNoteUUID: uuid
 // curatedNoteUUID: uuid
 app.get(constants.ENDPOINTS.REFERENCE_CURATED_NOTE, function (req, res) {

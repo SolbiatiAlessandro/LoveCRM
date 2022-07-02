@@ -4,21 +4,22 @@ export abstract class DATA {
 	public static readonly GRAPH_PATH = "./data/";
 }
 
-export abstract class ENDPOINTS {
-	public static readonly LOAD_GRAPH: string = "/load-graph"
-	public static readonly CREATE_UNCURATED_NOTE: string = "/create-uncurated-note"
-	public static readonly CREATE_CURATED_NOTE: string = "/create-curated-note"
-	public static readonly REFERENCE_CURATED_NOTE: string = "/reference-curated-note"
-	public static readonly EDIT_NOTE: string = "/edit-note"
-	public static readonly CREATE_PERSON: string = "/create-person"
+export enum ENDPOINTS {
+	LOAD_GRAPH = "/load-graph",
+	CREATE_UNCURATED_NOTE = "/create-uncurated-note",
+	CREATE_CURATED_NOTE = "/create-curated-note",
+	REFERENCE_CURATED_NOTE = "/reference-curated-note",
+	EDIT_NOTE = "/edit-note",
+	CREATE_PERSON = "/create-person",
+	CREATE_FILE = "/create-file",
 }
 
-// TODO: make enum
-export abstract class NODE_TYPES {
-	public static readonly CURATED_NOTE: string = "CURATED_NOTE";
-	public static readonly UNCURATED_NOTE: string = "UNCURATED_NOTE";
-	public static readonly PERSON: string = "PERSON";
-	public static readonly PICTURE: string = "PICTURE";
+export enum NODE_TYPES {
+	CURATED_NOTE = "CURATED_NOTE",
+	UNCURATED_NOTE = "UNCURATED_NOTE",
+	PERSON = "PERSON",
+	PICTURE = "PICTURE",
+	FILE = "FILE",
 }
 
 // TODO: make enum
