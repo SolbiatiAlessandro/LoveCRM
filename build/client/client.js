@@ -54,7 +54,7 @@ function onNodeClick(_a) {
         // 3) Background 
         var port = getServerPortValue();
         // TODO make backgroud dynamiac based on which node you click
-        document.getElementById("sigma-container").style["background-image"] = port == "8082" ? "url(/lovegraph_default.jpeg)" : "url(/fbgraph_default.jpeg)";
+        // document.getElementById("sigma-container").style["background-image"] = port == "8082" ? "url(/lovegraph_default.jpeg)" : "url(/fbgraph_default.jpeg)";
     });
 }
 function getServerPortValue() {

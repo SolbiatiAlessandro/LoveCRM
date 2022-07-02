@@ -2,6 +2,9 @@ import {Graph, GraphBuilder} from './graph.js';
 import {NoteBuilder} from './note.js';
 import * as constants from './constants.js';
 import { execSync	} from 'child_process';
+import pdfmerge from 'pdf-merge';
+const PDFMerge = { pdfmerge };
+import * as fs from 'fs';
 
 //const graph: Graph = GraphBuilder.loadGraph();
 const graphs: Record<string, Graph> = GraphBuilder.loadGraphs();
@@ -42,8 +45,16 @@ const app = express();
 app.use(cors());
 
 app.get( "/", ( req, res ) => {
-	const graph = getGraphFromRequest( req )[0];
+	const graph = getGraphFromRequest( req );
 	res.send(`graph order is ${ graph.order }`);
+} );
+
+// scriptUUID
+app.get( "/script", ( req, res ) => {
+	const graph = getGraphFromRequest( req );
+	const file = graph.getNodeAttribute(req.query.scriptUUID, 'fullpath');
+	eval(fs.readFileSync(file,  {encoding:'utf8', flag:'r'}));
+	res.sendStatus(200);
 } );
 
 
