@@ -104,15 +104,15 @@ app.get(constants.ENDPOINTS.CREATE_FILE, ( req, res ) => {
 	res.send(note);
 });
 
-// uncuratedNoteUUID: uuid
-// curatedNoteUUID: uuid
+// childrenNote: uuid
+// parentNote: uuid
 app.get(constants.ENDPOINTS.REFERENCE_CURATED_NOTE, ( req, res ) => {
 	const graph = getGraphFromRequest( req );
 	console.log(constants.ENDPOINTS.REFERENCE_CURATED_NOTE, req.query);
   NoteBuilder.referenceCuratedNote(
 		graph, 
-		req.query.uncuratedNoteUUID, 
-		req.query.curatedNoteUUID
+		req.query.childrenNote, 
+		req.query.parentNote
 	);
 	console.log("200 OK");
 	res.sendStatus(200);

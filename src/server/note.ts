@@ -70,8 +70,8 @@ export abstract class NoteBuilder {
 		return note.mdfile;
 	}
 
-	static referenceCuratedNote(graph: Graph, uncuratedNoteUUID: string, curatedNoteUUID: string){
-		graph.addEdge(curatedNoteUUID, uncuratedNoteUUID);
+	static referenceCuratedNote(graph: Graph, childrenNote: string, parentNote: string){
+		graph.addEdge(parentNote, childrenNote);
 		// TODO: how to overwrite in typescript? overwrite addEdge and 
 		// save graph directly inside there instead of needing to calling 
 		// it outside

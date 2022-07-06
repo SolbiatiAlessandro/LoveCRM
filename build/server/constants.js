@@ -12,7 +12,7 @@ export var ENDPOINTS;
     ENDPOINTS["LOAD_GRAPH"] = "/load-graph";
     ENDPOINTS["CREATE_UNCURATED_NOTE"] = "/create-uncurated-note";
     ENDPOINTS["CREATE_CURATED_NOTE"] = "/create-curated-note";
-    ENDPOINTS["REFERENCE_CURATED_NOTE"] = "/reference-curated-note";
+    ENDPOINTS["REFERENCE_CURATED_NOTE"] = "/reference-note";
     ENDPOINTS["EDIT_NOTE"] = "/edit-note";
     ENDPOINTS["CREATE_PERSON"] = "/create-person";
     ENDPOINTS["CREATE_FILE"] = "/create-file";

@@ -92,8 +92,8 @@ var NoteBuilder = /** @class */ (function () {
         GraphBuilder.save(graph);
         return note.mdfile;
     };
-    NoteBuilder.referenceCuratedNote = function (graph, uncuratedNoteUUID, curatedNoteUUID) {
-        graph.addEdge(curatedNoteUUID, uncuratedNoteUUID);
+    NoteBuilder.referenceCuratedNote = function (graph, childrenNote, parentNote) {
+        graph.addEdge(parentNote, childrenNote);
         // TODO: how to overwrite in typescript? overwrite addEdge and 
         // save graph directly inside there instead of needing to calling 
         // it outside

@@ -8,7 +8,7 @@ export enum ENDPOINTS {
 	LOAD_GRAPH = "/load-graph",
 	CREATE_UNCURATED_NOTE = "/create-uncurated-note",
 	CREATE_CURATED_NOTE = "/create-curated-note",
-	REFERENCE_CURATED_NOTE = "/reference-curated-note",
+	REFERENCE_CURATED_NOTE = "/reference-note",
 	EDIT_NOTE = "/edit-note",
 	CREATE_PERSON = "/create-person",
 	CREATE_FILE = "/create-file",
